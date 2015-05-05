@@ -1,27 +1,32 @@
-package App::Koyomi;
+#!/usr/bin/env perl
 
 use strict;
 use warnings;
 use 5.008_001;
 
-our $VERSION = "0.01";
+use App::Koyomi::Worker;
 
-1;
+App::Koyomi::Worker->new(@ARGV)->run;
+
 __END__
 
-=encoding utf-8
+=encoding utf8
 
 =head1 NAME
 
-App::Koyomi - It's new $module
+B<koyomi> - koyomi worker
 
 =head1 SYNOPSIS
 
-    use App::Koyomi;
+    ./koyomi
 
 =head1 DESCRIPTION
 
-App::Koyomi is ...
+This script is ...
+
+=head1 SEE ALSO
+
+L<App::Koyomi::Worker>
 
 =head1 AUTHORS
 
@@ -31,7 +36,7 @@ YASUTAKE Kiyoshi E<lt>yasutake.kiyoshi@gmail.comE<gt>
 
 Copyright (C) 2015 YASUTAKE Kiyoshi.
 
-This library is free software; you can redistribute it and/or modify it under
+This application is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.  That means either (a) the GNU General Public
 License or (b) the Artistic License.
 
