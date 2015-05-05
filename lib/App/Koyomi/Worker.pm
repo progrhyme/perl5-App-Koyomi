@@ -3,13 +3,23 @@ package App::Koyomi::Worker;
 use strict;
 use warnings;
 use 5.010_001;
+use Class::Accessor::Lite (
+    ro => [qw/ctx schedule/],
+);
+
+use App::Koyomi::Context;
+use App::Koyomi::Schedule;
 
 our $VERSION = '0.01';
 
 sub new {
     my $class = shift;
     my @args  = @_;
-    return bless +{}, $class;
+    my $ctx   = App::Koyomi::Context->get;
+    return bless +{
+        ctx      => $ctx,
+        schedule => App::Koyomi::Schedule->get(ctx => $ctx),
+    }, $class;
 }
 
 sub run {
