@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/ctx schedule/],
+    ro => [qw/ctx config schedule/],
 );
 
 use App::Koyomi::Context;
@@ -18,6 +18,7 @@ sub new {
     my $ctx   = App::Koyomi::Context->get;
     return bless +{
         ctx      => $ctx,
+        config   => $ctx->config,
         schedule => App::Koyomi::Schedule->get(ctx => $ctx),
     }, $class;
 }
