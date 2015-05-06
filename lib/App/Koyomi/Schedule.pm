@@ -3,7 +3,10 @@ package App::Koyomi::Schedule;
 use strict;
 use warnings;
 use 5.010_001;
+use DateTime;
 use Smart::Args;
+
+use App::Koyomi::Job;
 
 our $VERSION = '0.01';
 
@@ -18,6 +21,16 @@ sub get {
         return bless +{}, $class;
     }->();
     return $SCHEDULE;
+}
+
+sub update {
+    my $self = shift;
+}
+
+sub get_jobs {
+    my $self = shift;
+    my $now  = shift // DateTime->now;
+    return ( App::Koyomi::Job->new );
 }
 
 1;
@@ -46,6 +59,14 @@ This module represents Singleton schedule object.
 =item B<get>
 
 Fetch schedule singleton.
+
+=item B<update>
+
+Update schedule if needed.
+
+=item B<get_jobs> (DateTime)
+
+Fetch jobs to execute at that time.
 
 =back
 

@@ -1,25 +1,21 @@
-package App::Koyomi::Config;
+package App::Koyomi::Job;
 
 use strict;
 use warnings;
 use 5.010_001;
-use Class::Accessor::Lite (
-    ro => [qw/max_workers sleep_seconds/],
-);
 
 our $VERSION = '0.01';
 
-my $CONFIG;
-
-sub get {
+sub new {
     my $class = shift;
-    $CONFIG //= sub {
-        return bless +{
-            max_workers   => 16,
-            sleep_seconds => 5, # test parameter
-        }, $class;
-    }->();
-    return $CONFIG;
+    return bless +{}, $class;
+}
+
+sub proceed {
+    my $self = shift;
+
+    ## dummy output for debugging
+    printf "%s proceed.\n", $$;
 }
 
 1;
@@ -30,24 +26,28 @@ __END__
 
 =head1 NAME
 
-B<App::Koyomi::Config> - koyomi config
+B<App::Koyomi::Job> - koyomi job
 
 =head1 SYNOPSIS
 
-    use App::Koyomi::Config;
-    my $config = App::Koyomi::Config->get;
+    use App::Koyomi::Job;
+    my $job = App::Koyomi::Job->new;
 
 =head1 DESCRIPTION
 
-This module represents Singleton config object.
+This module represents job object.
 
 =head1 METHODS
 
 =over 4
 
-=item B<get>
+=item B<new>
 
-Fetch schedule singleton.
+Construction.
+
+=item B<proceed>
+
+Execute job.
 
 =back
 

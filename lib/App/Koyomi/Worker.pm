@@ -6,6 +6,7 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/ctx config schedule/],
 );
+use Parallel::Prefork;
 
 use App::Koyomi::Context;
 use App::Koyomi::Schedule;
@@ -25,6 +26,21 @@ sub new {
 
 sub run {
     my $self = shift;
+
+    ## main loop
+    while (1) {
+        $self->schedule->update;
+        my @jobs = $self->schedule->get_jobs;
+        my $pm = Parallel::Prefork->new(+{
+                max_workers => $self->config->max_workers,
+            });
+        for my $job (@jobs) {
+            $pm->start and next;
+            $job->proceed;
+            $pm->finish;
+        }
+        sleep($self->config->sleep_seconds);
+    }
 }
 
 1;
