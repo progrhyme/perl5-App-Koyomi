@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/max_workers sleep_seconds/],
+    ro => [qw/sleep_seconds/],
 );
 
 our $VERSION = '0.01';
@@ -15,7 +15,6 @@ sub get {
     my $class = shift;
     $CONFIG //= sub {
         return bless +{
-            max_workers   => 16,
             sleep_seconds => 5, # test parameter
         }, $class;
     }->();
