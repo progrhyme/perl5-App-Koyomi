@@ -1,14 +1,6 @@
-# NAME
+# Koyomi
 
-App::Koyomi - It's new $module
-
-# SYNOPSIS
-
-    use App::Koyomi;
-
-# DESCRIPTION
-
-App::Koyomi is ...
+This program is **under development**.
 
 # LICENSE
 
