@@ -9,7 +9,7 @@ use Class::Accessor::Lite (
 
 use App::Koyomi::Config;
 
-our $VERSION = '0.01';
+use version; our $VERSION = 'v0.1.0';
 
 my $CONTEXT;
 

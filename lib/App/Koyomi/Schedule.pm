@@ -8,7 +8,7 @@ use Smart::Args;
 
 use App::Koyomi::Job;
 
-our $VERSION = '0.01';
+use version; our $VERSION = 'v0.1.0';
 
 my $SCHEDULE;
 

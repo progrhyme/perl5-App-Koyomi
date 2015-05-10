@@ -7,7 +7,7 @@ use Class::Accessor::Lite (
     ro => [qw/sleep_seconds/],
 );
 
-our $VERSION = '0.01';
+use version; our $VERSION = 'v0.1.0';
 
 my $CONFIG;
 
