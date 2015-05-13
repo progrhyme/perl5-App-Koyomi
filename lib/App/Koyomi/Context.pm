@@ -48,7 +48,7 @@ This module represents Singleton context object.
 
 =item B<instance>
 
-Fetch schedule singleton.
+Fetch context singleton.
 
 =back
 
