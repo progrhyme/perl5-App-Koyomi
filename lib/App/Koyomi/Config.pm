@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/sleep_seconds/],
+    ro => [qw/sleep_seconds datasource_schedule_module/],
 );
 
 use version; our $VERSION = 'v0.1.0';
@@ -15,7 +15,8 @@ sub instance {
     my $class = shift;
     $CONFIG //= sub {
         return bless +{
-            sleep_seconds => 5, # test parameter
+            sleep_seconds              => 5,         # test parameter
+            datasource_schedule_module => 'Teng',    # default temporarily
         }, $class;
     }->();
     return $CONFIG;

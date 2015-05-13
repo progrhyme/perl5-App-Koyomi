@@ -6,6 +6,7 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/config/],
 );
+use Module::Load;
 
 use App::Koyomi::Config;
 
@@ -21,6 +22,14 @@ sub instance {
         }, $class;
     }->();
     return $CONTEXT;
+}
+
+sub datasource_schedule {
+    my $self = shift // __PACKAGE__->instance;
+    my $ds_module
+        = sprintf 'App::Koyomi::DataSource::Schedule::%s', $self->config->datasource_schedule_module;
+    load $ds_module;
+    $ds_module->instance(ctx => $self);
 }
 
 1;
@@ -49,6 +58,10 @@ This module represents Singleton context object.
 =item B<instance>
 
 Fetch context singleton.
+
+=item B<datasource_schedule>
+
+Fetch schedule datasource object.
 
 =back
 

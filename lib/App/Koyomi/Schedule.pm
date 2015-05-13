@@ -3,6 +3,9 @@ package App::Koyomi::Schedule;
 use strict;
 use warnings;
 use 5.010_001;
+use Class::Accessor::Lite (
+    ro => [qw/ds/],
+);
 use DateTime;
 use Smart::Args;
 
@@ -18,7 +21,10 @@ sub instance {
         my $ctx => 'App::Koyomi::Context',
     );
     $SCHEDULE //= sub {
-        return bless +{}, $class;
+        my %obj = (
+            ds => $ctx->datasource_schedule,
+        );
+        return bless \%obj, $class;
     }->();
     return $SCHEDULE;
 }
