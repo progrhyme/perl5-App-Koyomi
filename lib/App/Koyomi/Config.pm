@@ -11,7 +11,7 @@ use version; our $VERSION = 'v0.1.0';
 
 my $CONFIG;
 
-sub get {
+sub instance {
     my $class = shift;
     $CONFIG //= sub {
         return bless +{
@@ -34,7 +34,7 @@ B<App::Koyomi::Config> - koyomi config
 =head1 SYNOPSIS
 
     use App::Koyomi::Config;
-    my $config = App::Koyomi::Config->get;
+    my $config = App::Koyomi::Config->instance;
 
 =head1 DESCRIPTION
 
@@ -44,7 +44,7 @@ This module represents Singleton config object.
 
 =over 4
 
-=item B<get>
+=item B<instance>
 
 Fetch schedule singleton.
 

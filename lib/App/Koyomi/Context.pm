@@ -13,11 +13,11 @@ use version; our $VERSION = 'v0.1.0';
 
 my $CONTEXT;
 
-sub get {
+sub instance {
     my $class = shift;
     $CONTEXT //= sub {
         return bless +{
-            config => App::Koyomi::Config->get,
+            config => App::Koyomi::Config->instance,
         }, $class;
     }->();
     return $CONTEXT;
@@ -36,7 +36,7 @@ B<App::Koyomi::Context> - koyomi application context
 =head1 SYNOPSIS
 
     use App::Koyomi::Context;
-    my $ctx = App::Koyomi::Context->get;
+    my $ctx = App::Koyomi::Context->instance;
 
 =head1 DESCRIPTION
 
@@ -46,7 +46,7 @@ This module represents Singleton context object.
 
 =over 4
 
-=item B<get>
+=item B<instance>
 
 Fetch schedule singleton.
 

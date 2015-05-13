@@ -15,11 +15,11 @@ use version; our $VERSION = 'v0.1.0';
 sub new {
     my $class = shift;
     my @args  = @_;
-    my $ctx   = App::Koyomi::Context->get;
+    my $ctx   = App::Koyomi::Context->instance;
     return bless +{
         ctx      => $ctx,
         config   => $ctx->config,
-        schedule => App::Koyomi::Schedule->get(ctx => $ctx),
+        schedule => App::Koyomi::Schedule->instance(ctx => $ctx),
     }, $class;
 }
 

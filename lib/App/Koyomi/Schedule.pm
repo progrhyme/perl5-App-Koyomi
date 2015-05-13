@@ -12,7 +12,7 @@ use version; our $VERSION = 'v0.1.0';
 
 my $SCHEDULE;
 
-sub get {
+sub instance {
     args(
         my $class,
         my $ctx => 'App::Koyomi::Context',
@@ -46,7 +46,7 @@ B<App::Koyomi::Schedule> - koyomi job schedule
 =head1 SYNOPSIS
 
     use App::Koyomi::Schedule;
-    my $schedule = App::Koyomi::Schedule->get;
+    my $schedule = App::Koyomi::Schedule->instance;
 
 =head1 DESCRIPTION
 
@@ -56,7 +56,7 @@ This module represents Singleton schedule object.
 
 =over 4
 
-=item B<get>
+=item B<instance>
 
 Fetch schedule singleton.
 
