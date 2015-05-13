@@ -1092,6 +1092,13 @@ DISTRIBUTIONS
       Try::Tiny 0
       strict 0
       warnings 0
+  Module-Load-0.32
+    pathname: B/BI/BINGOS/Module-Load-0.32.tar.gz
+    provides:
+      Module::Load 0.32
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0.94
   Module-Runtime-0.014
     pathname: Z/ZE/ZEFRAM/Module-Runtime-0.014.tar.gz
     provides:
