@@ -1,4 +1,4 @@
-requires 'Class::Accessor::Lite', '0.06';
+requires 'Class::Accessor::Lite', '0.08';
 requires 'DateTime', '1.18';
 requires 'Smart::Args', '0.12';
 
