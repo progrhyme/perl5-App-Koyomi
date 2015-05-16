@@ -1,3 +1,9 @@
+[log]
+debug   = true
+console = true
+file    = true
+# file_path = /path/to/log
+
 [worker]
 sleep_seconds = 5
 

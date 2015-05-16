@@ -4,8 +4,11 @@ use strict;
 use warnings;
 use 5.010_001;
 use File::Spec;
+use Log::Minimal env_debug => 'KOYOMI_DEBUG';
 use Perl6::Slurp;
 use TOML qw(from_toml);
+
+use App::Koyomi::Logger;
 
 use version; our $VERSION = 'v0.1.0';
 
@@ -19,9 +22,20 @@ sub instance {
         unless ($data) {
             die "Error parsing toml: $err";
         }
-        return bless $data, $class;
+        my $self = bless $data, $class;
+
+        # setup logger
+        App::Koyomi::Logger->bootstrap(config => $self);
+        debugf(ddf($data));
+
+        return $self;
     }->();
     return $CONFIG;
+}
+
+sub log_path {
+    my $self = shift;
+    $self->{log}{file_path} // $ENV{KOYOMI_LOG_PATH} // File::Spec->catfile('log', 'koyomi.log');
 }
 
 sub _config_path {
