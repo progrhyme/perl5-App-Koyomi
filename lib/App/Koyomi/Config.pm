@@ -4,8 +4,11 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/sleep_seconds datasource_schedule_module/],
+    ro => [qw/sleep_seconds/],
 );
+use File::Spec;
+use Perl6::Slurp;
+use TOML qw(from_toml);
 
 use version; our $VERSION = 'v0.1.0';
 
@@ -14,12 +17,31 @@ my $CONFIG;
 sub instance {
     my $class = shift;
     $CONFIG //= sub {
-        return bless +{
-            sleep_seconds              => 5,         # test parameter
-            datasource_schedule_module => 'Teng',    # default temporarily
-        }, $class;
+        my $toml = slurp( _config_path() );
+        my ($data, $err) = from_toml($toml);
+        unless ($data) {
+            die "Error parsing toml: $err";
+        }
+        return bless $data, $class;
     }->();
     return $CONFIG;
+}
+
+# getter
+sub datasource_schedule_module {
+    $_[0]->{datasource}{module}{schedule};
+}
+
+sub _config_path {
+    my $path;
+    if ($ENV{KOYOMI_CONFIG_PATH}) {
+        $path = $ENV{KOYOMI_CONFIG_PATH};
+    }
+    $path ||= File::Spec->catfile('config', 'default.toml');
+    if (! -r $path) {
+        die "Can't read $path";
+    }
+    return $path;
 }
 
 1;
