@@ -61,7 +61,7 @@ This module represents Singleton config object.
 
 =item B<instance>
 
-Fetch schedule singleton.
+Fetch config singleton.
 
 =back
 
