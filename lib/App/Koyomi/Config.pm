@@ -77,7 +77,15 @@ This module represents Singleton config object.
 
 Fetch config singleton.
 
+=item B<log_path>
+
+Fetch log file path.
+
 =back
+
+=head1 SEE ALSO
+
+L<TOML>
 
 =head1 AUTHORS
 
