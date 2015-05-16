@@ -3,6 +3,7 @@ package App::Koyomi::Job;
 use strict;
 use warnings;
 use 5.010_001;
+use Log::Minimal env_debug => 'KOYOMI_DEBUG';
 
 use version; our $VERSION = 'v0.1.0';
 
@@ -15,7 +16,7 @@ sub proceed {
     my $self = shift;
 
     ## dummy output for debugging
-    printf "%s proceed.\n", $$;
+    infof("%s proceed.\n", $$);
 }
 
 1;
