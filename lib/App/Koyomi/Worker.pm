@@ -41,7 +41,7 @@ sub run {
                 die "Can't fork: $!";
             }
         }
-        sleep($self->config->sleep_seconds);
+        sleep($self->config->{worker}{sleep_seconds});
     }
 }
 

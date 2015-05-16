@@ -3,9 +3,6 @@ package App::Koyomi::Config;
 use strict;
 use warnings;
 use 5.010_001;
-use Class::Accessor::Lite (
-    ro => [qw/sleep_seconds/],
-);
 use File::Spec;
 use Perl6::Slurp;
 use TOML qw(from_toml);
@@ -25,11 +22,6 @@ sub instance {
         return bless $data, $class;
     }->();
     return $CONFIG;
-}
-
-# getter
-sub datasource_schedule_module {
-    $_[0]->{datasource}{module}{schedule};
 }
 
 sub _config_path {

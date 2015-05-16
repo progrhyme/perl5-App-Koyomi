@@ -27,7 +27,7 @@ sub instance {
 sub datasource_schedule {
     my $self = shift // __PACKAGE__->instance;
     my $ds_module
-        = sprintf 'App::Koyomi::DataSource::Schedule::%s', $self->config->datasource_schedule_module;
+        = sprintf 'App::Koyomi::DataSource::Schedule::%s', $self->config->{datasource}{module}{schedule};
     load $ds_module;
     $ds_module->instance(ctx => $self);
 }
