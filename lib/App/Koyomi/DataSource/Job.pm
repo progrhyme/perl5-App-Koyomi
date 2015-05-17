@@ -1,4 +1,4 @@
-package App::Koyomi::DataSource::Schedule;
+package App::Koyomi::DataSource::Job;
 
 use strict;
 use warnings;
@@ -17,11 +17,11 @@ __END__
 
 =head1 NAME
 
-B<App::Koyomi::DataSource::Schedule> - Abstract datasource class for job schedule
+B<App::Koyomi::DataSource::Job> - Abstract datasource class for job schedule
 
 =head1 SYNOPSIS
 
-    use parent qw(App::Koyomi::DataSource::Schedule);
+    use parent qw(App::Koyomi::DataSource::Job);
     sub instance {
         # Your implementation
     }
@@ -42,7 +42,7 @@ Fetch datasource.
 
 =head1 SEE ALSO
 
-L<App::Koyomi::Schedule>
+L<App::Koyomi::Job>
 
 =head1 AUTHORS
 

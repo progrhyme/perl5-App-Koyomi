@@ -1,10 +1,10 @@
-package App::Koyomi::DataSource::Schedule::Teng;
+package App::Koyomi::DataSource::Job::Teng;
 
 use strict;
 use warnings;
 use 5.010_001;
 
-use parent qw(App::Koyomi::DataSource::Schedule);
+use parent qw(App::Koyomi::DataSource::Job);
 
 use version; our $VERSION = 'v0.1.0';
 
@@ -20,12 +20,12 @@ __END__
 
 =head1 NAME
 
-App::Koyomi::DataSource::Schedule::Teng - Teng interface as schedule datasource
+App::Koyomi::DataSource::Job::Teng - Teng interface as schedule datasource
 
 =head1 SYNOPSIS
 
-    use App::Koyomi::DataSource::Schedule::Teng;
-    my $ds = App::Koyomi::DataSource::Schedule::Teng->instance;
+    use App::Koyomi::DataSource::Job::Teng;
+    my $ds = App::Koyomi::DataSource::Job::Teng->instance;
 
 =head1 DESCRIPTION
 
@@ -33,7 +33,7 @@ Teng interface as datasource for koyomi job schedule.
 
 =head1 SEE ALSO
 
-L<App::Koyomi::DataSource::Schedule>,
+L<App::Koyomi::DataSource::Job>,
 L<Teng>
 
 =head1 AUTHORS

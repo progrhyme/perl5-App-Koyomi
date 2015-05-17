@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/ds/],
+    ro => [qw/ds_job/],
 );
 use DateTime;
 use Smart::Args;
@@ -22,7 +22,7 @@ sub instance {
     );
     $SCHEDULE //= sub {
         my %obj = (
-            ds => $ctx->datasource_schedule,
+            ds_job => $ctx->datasource_job,
         );
         return bless \%obj, $class;
     }->();

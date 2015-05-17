@@ -8,4 +8,4 @@ file    = true
 sleep_seconds = 5
 
 [datasource.module]
-schedule = "Teng"
+job = "Teng"

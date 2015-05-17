@@ -24,10 +24,10 @@ sub instance {
     return $CONTEXT;
 }
 
-sub datasource_schedule {
+sub datasource_job {
     my $self = shift // __PACKAGE__->instance;
     my $ds_module
-        = sprintf 'App::Koyomi::DataSource::Schedule::%s', $self->config->{datasource}{module}{schedule};
+        = sprintf 'App::Koyomi::DataSource::Job::%s', $self->config->{datasource}{module}{job};
     load $ds_module;
     $ds_module->instance(ctx => $self);
 }
