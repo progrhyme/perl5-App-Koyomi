@@ -4,12 +4,27 @@ use strict;
 use warnings;
 use 5.010_001;
 use Log::Minimal env_debug => 'KOYOMI_DEBUG';
+use Smart::Args;
 
 use version; our $VERSION = 'v0.1.0';
 
 sub new {
     my $class = shift;
     return bless +{}, $class;
+}
+
+sub get_jobs {
+    args(
+        my $class,
+        my $ds => 'App::Koyomi::DataSource::Job',
+    );
+    my @data = $ds->gets;
+    my @jobs;
+    for my $d (@data) {
+        my $job = bless $d, $class;
+        push(@jobs, $job);
+    }
+    return \@jobs;
 }
 
 sub proceed {

@@ -4,9 +4,10 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/ds_job/],
+    ro => [qw/ds_job jobs/],
 );
 use DateTime;
+use Log::Minimal env_debug => 'KOYOMI_DEBUG';
 use Smart::Args;
 
 use App::Koyomi::Job;
@@ -23,6 +24,7 @@ sub instance {
     $SCHEDULE //= sub {
         my %obj = (
             ds_job => $ctx->datasource_job,
+            jobs   => undef,
         );
         return bless \%obj, $class;
     }->();
@@ -31,6 +33,14 @@ sub instance {
 
 sub update {
     my $self = shift;
+    debugf('update jobs');
+    $self->_update_jobs;
+    debugf(ddf($self->jobs));
+}
+
+sub _update_jobs {
+    my $self = shift;
+    $self->{jobs} = App::Koyomi::Job->get_jobs(ds => $self->ds_job);
 }
 
 sub get_jobs {

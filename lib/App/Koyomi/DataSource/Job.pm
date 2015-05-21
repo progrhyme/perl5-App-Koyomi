@@ -9,6 +9,8 @@ use version; our $VERSION = 'v0.1.0';
 
 sub instance { croak 'Must implement in child class!'; }
 
+sub gets { croak 'Must implement in child class!'; }
+
 1;
 
 __END__

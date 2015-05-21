@@ -9,3 +9,10 @@ sleep_seconds = 5
 
 [datasource.module]
 job = "Teng"
+
+[datasource.connector]
+dsn = "dbi:mysql:database=koyomi;host=127.0.0.1;port=3306"
+user = "root"
+password = ""
+
+#[datasource.connector.job]
