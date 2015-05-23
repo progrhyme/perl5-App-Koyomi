@@ -6,6 +6,7 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/data/],
 );
+use IPC::Cmd;
 use Log::Minimal env_debug => 'KOYOMI_DEBUG';
 use Smart::Args;
 
@@ -52,8 +53,32 @@ sub get_jobs {
 sub proceed {
     my $self = shift;
 
-    ## dummy output for debugging
-    infof("%s proceed.\n", $$);
+    my $header = sprintf(q/%d %d/, $$, $self->id);
+    my $user = $self->user || $ENV{USER} || $ENV{LOGNAME} || getlogin() || getpwuid($<) || '<Undefined>';
+    infof(q/%s USER=%s COMMAND="%s"/, $header, $user, $self->command);
+    my ($ok, $err, undef, $stdout, $stderr) = IPC::Cmd::run(command => $self->command);
+    if ($ok) {
+        infof(q/%s Succeeded./, $header);
+        if (scalar(@$stdout)) {
+            infof(q/%s ===== STDOUT =====/, $header);
+            infof(q/%s %s/, $header, $_) for @$stdout;
+        }
+        if (scalar(@$stderr)) {
+            infof(q/%s ===== STDERR =====/, $header);
+            infof(q/%s %s/, $header, $_) for @$stderr;
+        }
+    } else {
+        critf(q/%d Failed!!/, $self->id);
+        critf(q/%d ERROR=%s/, $self->id);
+        if (scalar(@$stdout)) {
+            critf(q/%d ===== STDOUT =====/, $self->id);
+            critf(q/%d %s/, $self->id, $_) for @$stdout;
+        }
+        if (scalar(@$stderr)) {
+            critf(q/%d ===== STDERR =====/, $self->id);
+            critf(q/%d %s/, $self->id, $_) for @$stderr;
+        }
+    }
 }
 
 1;
