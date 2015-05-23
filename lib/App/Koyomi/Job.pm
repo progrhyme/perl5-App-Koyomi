@@ -3,10 +3,27 @@ package App::Koyomi::Job;
 use strict;
 use warnings;
 use 5.010_001;
+use Class::Accessor::Lite (
+    ro => [qw/data/],
+);
 use Log::Minimal env_debug => 'KOYOMI_DEBUG';
 use Smart::Args;
 
 use version; our $VERSION = 'v0.1.0';
+
+our @FIELDS = qw/
+id user command memo year month day hour minute weekday created_on updated_at
+/;
+
+{
+    no strict 'refs';
+    for my $field (@FIELDS) {
+        *{ __PACKAGE__ . '::' . $field } = sub {
+            my $self = shift;
+            $self->data->$field;
+        };
+    }
+}
 
 sub new {
     my $class = shift;
@@ -21,7 +38,12 @@ sub get_jobs {
     my @data = $ds->gets;
     my @jobs;
     for my $d (@data) {
-        my $job = bless $d, $class;
+        my $job = bless +{ data => $d }, $class;
+        debugf(
+            q/(id,user,command,time) = (%d,%s,"%s","%s %s %s %s %s")/,
+            $job->id, $job->user || '<NULL>', $job->command, $job->minute,
+            $job->hour, $job->day, $job->month, $job->weekday
+        );
         push(@jobs, $job);
     }
     return \@jobs;
