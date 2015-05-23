@@ -15,20 +15,20 @@ __END__
 
 =head1 NAME
 
-App::Koyomi::DataSource::Job::Teng::Object - Teng::Object interface as schedule datasource
+App::Koyomi::DataSource::Job::Teng::Object - Teng::Object class for job datasource
 
 =head1 SYNOPSIS
 
     use App::Koyomi::DataSource::Job::Teng::Object;
-    my $ds = App::Koyomi::DataSource::Job::Teng::Object->instance;
+    my $teng = App::Koyomi::DataSource::Job::Teng::Object->new(%args);
 
 =head1 DESCRIPTION
 
-Teng::Object interface as datasource for koyomi job schedule.
+Teng::Object class for job datasource.
 
 =head1 SEE ALSO
 
-L<App::Koyomi::DataSource::Job>,
+L<App::Koyomi::DataSource::Job::Teng>,
 L<Teng::Object>
 
 =head1 AUTHORS

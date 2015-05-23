@@ -56,7 +56,8 @@ App::Koyomi::DataSource::Job::Teng - Teng interface as schedule datasource
 =head1 SYNOPSIS
 
     use App::Koyomi::DataSource::Job::Teng;
-    my $ds = App::Koyomi::DataSource::Job::Teng->instance;
+    my $ds = App::Koyomi::DataSource::Job::Teng->instance(ctx => $ctx);
+    my @jobs = $ds->gets
 
 =head1 DESCRIPTION
 

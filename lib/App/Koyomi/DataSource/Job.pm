@@ -19,18 +19,19 @@ __END__
 
 =head1 NAME
 
-B<App::Koyomi::DataSource::Job> - Abstract datasource class for job schedule
+B<App::Koyomi::DataSource::Job> - Abstract datasource class for job entity
 
 =head1 SYNOPSIS
 
     use parent qw(App::Koyomi::DataSource::Job);
-    sub instance {
-        # Your implementation
-    }
+
+    # Your implementation goes below
+    sub instance { ... }
+    sub gets { ... }
 
 =head1 DESCRIPTION
 
-Abstract datasource class for koyomi job schedule.
+Abstract datasource class for koyomi job entity.
 
 =head1 METHODS
 
@@ -38,7 +39,12 @@ Abstract datasource class for koyomi job schedule.
 
 =item B<instance>
 
-Fetch datasource.
+Construct datasource object.
+Probably it's singleton.
+
+=item B<gets>
+
+Fetch all job data as array.
 
 =back
 
