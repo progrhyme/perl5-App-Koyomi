@@ -5,12 +5,14 @@ use warnings;
 use 5.010_001;
 use Teng::Schema::Declare;
 
+use App::Koyomi::Job;
+
 use version; our $VERSION = 'v0.1.0';
 
 table {
     name    'jobs';
     pk      'id';
-    columns qw/id user command memo year month day hour minute weekday created_on updated_at/;
+    columns @App::Koyomi::Job::FIELDS;
 };
 
 1;
