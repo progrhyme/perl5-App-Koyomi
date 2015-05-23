@@ -46,7 +46,7 @@ sub _update_jobs {
 sub get_jobs {
     my $self = shift;
     my $now  = shift // DateTime->now;
-    return ( App::Koyomi::Job->new );
+    return @{$self->jobs};
 }
 
 1;
