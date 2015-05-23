@@ -47,14 +47,20 @@ sub get_jobs {
     my $self = shift;
     my $now  = shift // DateTime->now;
 
-    ## Fetch scheduled jobs
+    # Fetch scheduled jobs
+    return _filter_current_jobs($self->jobs, $now);
+}
+
+sub _filter_current_jobs {
+    my ($all_jobs, $now) = @_;
+
     # all conditions but day and day-of-week
     my @jobs = grep {
            ( $_->year   eq '*' || $_->year   == $now->year   )
         && ( $_->month  eq '*' || $_->month  == $now->month  )
         && ( $_->hour   eq '*' || $_->hour   == $now->hour   )
         && ( $_->minute eq '*' || $_->minute == $now->minute )
-    } @{$self->jobs};
+    } @$all_jobs;
 
     # day and day-of-week conditions
     @jobs = grep {
