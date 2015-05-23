@@ -41,7 +41,8 @@ sub instance {
 
 sub gets {
     my $self = shift;
-    $self->teng->search('jobs' => +{});
+    my $itr = $self->teng->search('jobs' => +{});
+    return $itr->all;
 }
 
 1;
