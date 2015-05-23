@@ -35,7 +35,7 @@ sub update {
     my $self = shift;
     debugf('update jobs');
     $self->_update_jobs;
-    debugf(ddf($self->jobs));
+    #debugf(ddf($self->jobs));
 }
 
 sub _update_jobs {
