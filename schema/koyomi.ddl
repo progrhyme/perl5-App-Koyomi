@@ -52,7 +52,7 @@ CREATE TABLE `semaphores` (
   `run_host` varchar(256) NOT NULL DEFAULT '' COMMENT 'On which host the last job ran',
   `run_pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Tha last process id',
   `created_on` datetime NOT NULL,
-  `run_on` datetime NOT NULL,
+  `run_date` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`job_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
