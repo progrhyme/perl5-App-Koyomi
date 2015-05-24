@@ -53,7 +53,7 @@ sub _now {
         my $t = Time::Piece->strptime($datestr, '%Y-%m-%dT%H:%M');
         return DateTime->from_epoch(epoch => $t->epoch);
     }
-    return DateTime->now;
+    return DateTime->now(time_zone => $self->config->time_zone);
 }
 
 1;

@@ -3,6 +3,7 @@ package App::Koyomi::Config;
 use strict;
 use warnings;
 use 5.010_001;
+use DateTime::TimeZone;
 use File::Spec;
 use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Perl6::Slurp;
@@ -31,6 +32,11 @@ sub instance {
         return $self;
     }->();
     return $CONFIG;
+}
+
+sub time_zone {
+    my $self = shift;
+    $self->{time_zone} // DateTime::TimeZone->new(name => 'local');
 }
 
 sub log_path {

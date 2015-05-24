@@ -36,7 +36,7 @@ sub instance {
 
 sub update {
     my $self = shift;
-    my $now  = shift // DateTime->now;
+    my $now  = shift // DateTime->now(time_zone => $self->config->time_zone);
 
     if ($now->epoch - $self->last_updated_at < $self->config->{schedule}{update_interval_seconds}) {
         debugf('no need to update schedule');
@@ -56,7 +56,7 @@ sub _update_jobs {
 
 sub get_jobs {
     my $self = shift;
-    my $now  = shift // DateTime->now;
+    my $now  = shift // DateTime->now(time_zone => $self->config->time_zone);
     debugf($now->strftime('%FT%T %a'));
 
     # Fetch scheduled jobs

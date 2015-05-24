@@ -1,5 +1,6 @@
 # === General Settings
 
+#time_zone = "Asia/Tokyo"
 #debug = true
 
 [log]
