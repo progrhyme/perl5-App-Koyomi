@@ -10,7 +10,9 @@ file    = true
 # file_path = /path/to/log
 
 [worker]
-sleep_seconds = 5
+interval_minutes = 1
+# Avoid to make larger than interval_minutes
+minimum_interval_seconds = 30
 
 [schedule]
 update_interval_seconds = 120
@@ -24,3 +26,11 @@ user = "root"
 password = ""
 
 #[datasource.connector.job]
+
+# === Debug Parameters
+
+[debug]
+#now = "2015-05-23T00:00"
+
+[debug.worker]
+sleep_seconds = 5

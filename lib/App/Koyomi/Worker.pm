@@ -28,11 +28,13 @@ sub new {
 sub run {
     my $self = shift;
 
+    my $now = $self->_now;
+
     ## main loop
     while (1) {
-        my $now = _now();
         $self->schedule->update($now);
         my @jobs = $self->schedule->get_jobs($now);
+
         for my $job (@jobs) {
             my $pid = fork();
             if ($pid == 0) { # child
@@ -44,13 +46,33 @@ sub run {
                 die "Can't fork: $!";
             }
         }
-        sleep($self->config->{worker}{sleep_seconds});
+
+        my $prev_epoch = $now->epoch;
+        $now->add(
+            minutes => $self->config->{worker}{interval_minutes}
+        )->truncate(to => 'minute');
+
+        # Sleep to next tick
+        my $seconds = $now->epoch - $prev_epoch;
+        if ($seconds < $self->config->{worker}{minimum_interval_seconds}) {
+            $seconds = $self->config->{worker}{minimum_interval_seconds};
+        }
+        if ($self->ctx->is_debug) {
+            $seconds = $self->config->{debug}{worker}{sleep_seconds} // $seconds;
+        }
+        sleep($seconds);
     }
 }
 
 sub _now {
-    if (my $datestr = $ENV{KOYOMI_DEBUG_NOW}) {
-        my $t = Time::Piece->strptime($datestr, '%Y-%m-%dT%H:%M');
+    my $self = shift;
+
+    my $debug_datestr = sub {
+        return unless $self->ctx->is_debug;
+        return $self->config->{debug}{now} // undef;
+    }->();
+    if ($debug_datestr) {
+        my $t = Time::Piece->strptime($debug_datestr, '%Y-%m-%dT%H:%M');
         return DateTime->from_epoch(epoch => $t->epoch);
     }
     return DateTime->now(time_zone => $self->config->time_zone);
