@@ -34,7 +34,9 @@ sub datasource_job {
 
 sub is_debug {
     my $self = shift;
-    $ENV{KOYOMI_DEBUG} // $self->config->{debug_mode} eq 'true';
+    return 1 if $ENV{KOYOMI_DEBUG};
+    my $debug_mode = $self->config->{debug_mode} // q{};
+    return 1 if ($debug_mode eq 'true');
 }
 
 1;
