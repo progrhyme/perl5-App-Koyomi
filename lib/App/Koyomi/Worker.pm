@@ -38,7 +38,7 @@ sub run {
         for my $job (@jobs) {
             my $pid = fork();
             if ($pid == 0) { # child
-                $job->proceed;
+                $job->proceed($now);
                 exit;
             } elsif ($pid) { # parent
                 # nothing to do

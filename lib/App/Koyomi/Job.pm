@@ -4,8 +4,9 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/data/],
+    ro => [qw/ctx data/],
 );
+use DateTime;
 use IPC::Cmd;
 use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
@@ -39,7 +40,10 @@ sub get_jobs {
     my @data = $ctx->datasource_job->gets;
     my @jobs;
     for my $d (@data) {
-        my $job = bless +{ data => $d }, $class;
+        my $job = bless +{
+            ctx  => $ctx,
+            data => $d,
+        }, $class;
         debugf(
             q/(id,user,command,time) = (%d,%s,"%s","%s %s %s %s %s")/,
             $job->id, $job->user || '<NULL>', $job->command, $job->minute,
@@ -52,6 +56,7 @@ sub get_jobs {
 
 sub proceed {
     my $self = shift;
+    my $now  = shift // $self->ctx->now;
 
     my $header = sprintf(q/%d %d/, $$, $self->id);
     my $user = $self->user || $ENV{USER} || $ENV{LOGNAME} || getlogin() || getpwuid($<) || '<Undefined>';
