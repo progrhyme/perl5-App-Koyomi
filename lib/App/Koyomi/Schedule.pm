@@ -64,9 +64,9 @@ sub _filter_current_jobs {
 
     # day and day-of-week conditions
     @jobs = grep {
-           ( $_->day eq '*' && $_->weekday eq '*' )
-        || $_->day     == $now->day
-        || $_->weekday == $now->day_of_week
+           ( $_->day     eq '*'     && $_->weekday eq '*' )
+        || ( $_->day     =~ /^\d+$/ && $_->day     == $now->day )
+        || ( $_->weekday =~ /^\d+$/ && $_->weekday == $now->day_of_week )
     } @jobs;
 
     return @jobs;
