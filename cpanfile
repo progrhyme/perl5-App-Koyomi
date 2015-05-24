@@ -1,5 +1,6 @@
 requires 'Class::Accessor::Lite', '0.08';
 requires 'DateTime', '1.18';
+requires 'DateTime::Format::MySQL', '0.05';
 requires 'DateTime::TimeZone', '1.88';
 requires 'Log::Minimal', '0.19';
 requires 'Module::Load', '0.32';
