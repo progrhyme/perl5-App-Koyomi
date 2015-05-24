@@ -1,7 +1,7 @@
 # === General Settings
 
 #time_zone = "Asia/Tokyo"
-#debug = true
+#debug_mode = true
 
 [log]
 debug   = true
