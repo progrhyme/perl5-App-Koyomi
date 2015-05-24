@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/ctx config ds_job jobs/],
+    ro => [qw/ctx config jobs/],
     rw => [qw/last_updated_at/],
 );
 use DateTime;
@@ -26,7 +26,6 @@ sub instance {
         my %obj = (
             ctx             => $ctx,
             config          => $ctx->config,
-            ds_job          => $ctx->datasource_job,
             jobs            => undef,
             last_updated_at => 0,
         );
@@ -52,7 +51,7 @@ sub update {
 
 sub _update_jobs {
     my $self = shift;
-    $self->{jobs} = App::Koyomi::Job->get_jobs(ds => $self->ds_job);
+    $self->{jobs} = App::Koyomi::Job->get_jobs(ctx => $self->ctx);
 }
 
 sub get_jobs {

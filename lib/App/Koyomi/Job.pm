@@ -34,9 +34,9 @@ sub new {
 sub get_jobs {
     args(
         my $class,
-        my $ds => 'App::Koyomi::DataSource::Job',
+        my $ctx => 'App::Koyomi::Context',
     );
-    my @data = $ds->gets;
+    my @data = $ctx->datasource_job->gets;
     my @jobs;
     for my $d (@data) {
         my $job = bless +{ data => $d }, $class;
