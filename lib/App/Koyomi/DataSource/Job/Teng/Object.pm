@@ -29,7 +29,7 @@ Teng::Object class for job datasource.
 =head1 SEE ALSO
 
 L<App::Koyomi::DataSource::Job::Teng>,
-L<Teng::Object>
+L<Teng>
 
 =head1 AUTHORS
 
