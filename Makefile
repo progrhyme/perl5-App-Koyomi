@@ -4,4 +4,4 @@ worker:
 	carton exec perl -Ilib script/koyomi
 
 test:
-	carton exec prove -Ilib -rv t/
+	carton exec prove -Ilib -It/lib -rv t/
