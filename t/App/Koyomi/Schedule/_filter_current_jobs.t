@@ -101,6 +101,78 @@ __END__
 --- match
 0
 
+=== Compare days OK
+--- job_date
+* * 1 * * *
+--- executed_on
+2015-05-01T15:15
+--- match
+1
+
+=== Compare days NG
+--- job_date
+* * 31 * * *
+--- executed_on
+2015-05-30T11:06
+--- match
+0
+
+=== Compare weekdays OK (It's Sunday on 2015/5/24)
+--- job_date
+* * * * * 7
+--- executed_on
+2015-05-24T00:15
+--- match
+1
+
+=== Compare weekdays NG
+--- job_date
+* * * * * 2
+--- executed_on
+2015-05-25T11:06
+--- match
+0
+
+=== Compare weekdays NG. "0" means nothing.
+--- job_date
+* * * * * 0
+--- executed_on
+2015-05-24T11:06
+--- match
+0
+
+=== Compare (days, weekdays) OK. Days OK
+--- job_date
+* * 24 * * 6
+--- executed_on
+2015-05-24T16:15
+--- match
+1
+
+=== Compare (days, weekdays) OK. Weekdays OK
+--- job_date
+* * 1 * * 7
+--- executed_on
+2015-05-24T16:15
+--- match
+1
+
+=== Compare (days, weekdays) OK. Both OK
+--- job_date
+* * 24 * * 7
+--- executed_on
+2015-05-24T16:15
+--- match
+1
+
+=== Compare (days, weekdays) NG. Both NG
+--- job_date
+* * 31 * * 2
+--- executed_on
+2015-05-24T16:15
+--- match
+0
+
 # for Emacsen
 # Local Variables:
 # mode: cperl
