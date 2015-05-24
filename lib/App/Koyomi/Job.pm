@@ -69,7 +69,7 @@ sub proceed {
         }
     } else {
         critf(q/%d Failed!!/, $self->id);
-        critf(q/%d ERROR=%s/, $self->id);
+        critf(q/%d ERROR=%s/, $self->id, $err);
         if (scalar(@$stdout)) {
             critf(q/%d ===== STDOUT =====/, $self->id);
             critf(q/%d %s/, $self->id, $_) for @$stdout;
