@@ -53,9 +53,12 @@ sub run {
         )->truncate(to => 'minute');
 
         # Sleep to next tick
+        my $min_seconds = $self->config->{worker}{minimum_interval_seconds};
         my $seconds = $now->epoch - $prev_epoch;
-        if ($seconds < $self->config->{worker}{minimum_interval_seconds}) {
-            $seconds = $self->config->{worker}{minimum_interval_seconds};
+        if ($seconds < $min_seconds) {
+            my $dsec = $min_seconds - $seconds;
+            $seconds = $min_seconds;
+            $now->add(seconds => $dsec);
         }
         if ($self->ctx->is_debug) {
             $seconds = $self->config->{debug}{worker}{sleep_seconds} // $seconds;
