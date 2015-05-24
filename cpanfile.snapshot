@@ -1596,6 +1596,13 @@ DISTRIBUTIONS
       PadWalker 1.92
       Scalar::Util 1.21
       perl 5.008001
+  Spiffy-0.46
+    pathname: I/IN/INGY/Spiffy-0.46.tar.gz
+    provides:
+      Spiffy 0.46
+      Spiffy::mixin undef
+    requirements:
+      ExtUtils::MakeMaker 6.30
   Sub-Exporter-Progressive-0.001011
     pathname: F/FR/FREW/Sub-Exporter-Progressive-0.001011.tar.gz
     provides:
@@ -1683,6 +1690,17 @@ DISTRIBUTIONS
       SQL::Maker 0.14
       parent 0
       perl 5.008_001
+  Test-Base-0.88
+    pathname: I/IN/INGY/Test-Base-0.88.tar.gz
+    provides:
+      Test::Base 0.88
+      Test::Base::Block 0.88
+      Test::Base::Filter undef
+      Test::Base::Handle 0.88
+    requirements:
+      ExtUtils::MakeMaker 6.30
+      Filter::Util::Call 0
+      Spiffy 0.40
   Test-Exception-0.38
     pathname: E/ET/ETHER/Test-Exception-0.38.tar.gz
     provides:
