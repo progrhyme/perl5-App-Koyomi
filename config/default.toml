@@ -1,3 +1,7 @@
+# === General Settings
+
+#debug = true
+
 [log]
 debug   = true
 console = true

@@ -32,6 +32,11 @@ sub datasource_job {
     $ds_module->instance(ctx => $self);
 }
 
+sub is_debug {
+    my $self = shift;
+    $ENV{KOYOMI_DEBUG} // $self->config->{debug} eq 'true';
+}
+
 1;
 
 __END__
