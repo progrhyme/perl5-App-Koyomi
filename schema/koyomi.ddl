@@ -48,9 +48,11 @@ DROP TABLE IF EXISTS `semaphores`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `semaphores` (
   `job_id` int(10) unsigned NOT NULL COMMENT 'jobs.id',
-  `number` smallint(5) unsigned NOT NULL COMMENT 'Semaphore resource remains',
+  `number` smallint(5) unsigned NOT NULL COMMENT 'Semaphore resource remains (Not in use)',
   `run_host` varchar(256) NOT NULL DEFAULT '' COMMENT 'On which host the last job ran',
   `run_pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Tha last process id',
+  `created_on` datetime NOT NULL,
+  `run_on` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`job_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
