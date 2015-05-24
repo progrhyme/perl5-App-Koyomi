@@ -6,6 +6,8 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/ctx config schedule/],
 );
+use DateTime;
+use Time::Piece;
 
 use App::Koyomi::Context;
 use App::Koyomi::Schedule;
@@ -28,8 +30,9 @@ sub run {
 
     ## main loop
     while (1) {
-        $self->schedule->update;
-        my @jobs = $self->schedule->get_jobs;
+        my $now = _now();
+        $self->schedule->update($now);
+        my @jobs = $self->schedule->get_jobs($now);
         for my $job (@jobs) {
             my $pid = fork();
             if ($pid == 0) { # child
@@ -43,6 +46,14 @@ sub run {
         }
         sleep($self->config->{worker}{sleep_seconds});
     }
+}
+
+sub _now {
+    if (my $datestr = $ENV{KOYOMI_DEBUG_NOW}) {
+        my $t = Time::Piece->strptime($datestr, '%Y-%m-%dT%H:%M');
+        return DateTime->from_epoch(epoch => $t->epoch);
+    }
+    return DateTime->now;
 }
 
 1;
