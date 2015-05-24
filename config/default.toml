@@ -7,6 +7,9 @@ file    = true
 [worker]
 sleep_seconds = 5
 
+[schedule]
+update_interval_seconds = 120
+
 [datasource.module]
 job = "Teng"
 

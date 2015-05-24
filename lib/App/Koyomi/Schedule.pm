@@ -4,7 +4,8 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/ds_job jobs/],
+    ro => [qw/config ds_job jobs/],
+    rw => [qw/last_updated_at/],
 );
 use DateTime;
 use Log::Minimal env_debug => 'KOYOMI_DEBUG';
@@ -23,8 +24,10 @@ sub instance {
     );
     $SCHEDULE //= sub {
         my %obj = (
-            ds_job => $ctx->datasource_job,
-            jobs   => undef,
+            config          => $ctx->config,
+            ds_job          => $ctx->datasource_job,
+            jobs            => undef,
+            last_updated_at => 0,
         );
         return bless \%obj, $class;
     }->();
@@ -33,8 +36,16 @@ sub instance {
 
 sub update {
     my $self = shift;
-    debugf('update jobs');
+    my $now  = shift // DateTime->now;
+
+    if ($now->epoch - $self->last_updated_at < $self->config->{schedule}{update_interval_seconds}) {
+        debugf('no need to update schedule');
+        return;
+    }
+
+    debugf('update schedule');
     $self->_update_jobs;
+    $self->last_updated_at($now->epoch);
     #debugf(ddf($self->jobs));
 }
 
