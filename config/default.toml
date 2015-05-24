@@ -13,7 +13,7 @@ file    = true
 
 [worker]
 interval_minutes = 1
-# Avoid to make larger than interval_minutes
+# Must be shorter than interval_minutes
 minimum_interval_seconds = 30
 
 [schedule]
