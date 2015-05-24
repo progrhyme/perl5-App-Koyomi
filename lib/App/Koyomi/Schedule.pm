@@ -57,6 +57,7 @@ sub _update_jobs {
 sub get_jobs {
     my $self = shift;
     my $now  = shift // DateTime->now;
+    debugf($now->strftime('%FT%T %a'));
 
     # Fetch scheduled jobs
     return _filter_current_jobs($self->jobs, $now);
