@@ -11,6 +11,8 @@ use IPC::Cmd;
 use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 
+use App::Koyomi::Semaphore;
+
 use version; our $VERSION = 'v0.1.0';
 
 our @FIELDS = qw/
@@ -59,6 +61,11 @@ sub proceed {
     my $now  = shift // $self->ctx->now;
 
     my $header = sprintf(q/%d %d/, $$, $self->id);
+    unless ($self->_get_lock(now => $now)) {
+        infof(q/%s Failed to get lock. Quit./, $header);
+        return;
+    }
+
     my $user = $self->user || $ENV{USER} || $ENV{LOGNAME} || getlogin() || getpwuid($<) || '<Undefined>';
     infof(q/%s USER=%s COMMAND="%s"/, $header, $user, $self->command);
     my ($ok, $err, undef, $stdout, $stderr) = IPC::Cmd::run(command => $self->command);
@@ -84,6 +91,20 @@ sub proceed {
             critf(q/%d %s/, $self->id, $_) for @$stderr;
         }
     }
+}
+
+sub _get_lock {
+    args(
+        my $self,
+        my $now => +{ isa => 'DateTime', optional => 1 },
+    );
+    $now ||= $self->ctx->now;
+
+    return App::Koyomi::Semaphore->consume(
+        job_id => $self->id,
+        now    => $now,
+        ctx    => $self->ctx,
+    );
 }
 
 1;

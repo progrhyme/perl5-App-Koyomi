@@ -9,6 +9,8 @@ console = true
 file    = true
 # file_path = /path/to/log
 
+# === Job Scheduling Settings
+
 [worker]
 interval_minutes = 1
 # Avoid to make larger than interval_minutes
@@ -17,17 +19,24 @@ minimum_interval_seconds = 30
 [schedule]
 update_interval_seconds = 120
 
+[job]
+# Must be shorter than worker.minimum_interval_seconds
+lock_ttl_seconds = 25
+
 # === Data Source Settings
 
 [datasource.module]
-job = "Teng"
+job       = "Teng"
+semaphore = "Teng"
 
 [datasource.connector]
-dsn = "dbi:mysql:database=koyomi;host=127.0.0.1;port=3306"
-user = "root"
+dsn      = "dbi:mysql:database=koyomi;host=127.0.0.1;port=3306"
+user     = "root"
 password = ""
 
+# Can override for each entity
 #[datasource.connector.job]
+#[datasource.connector.semaphore]
 
 # === Debug Parameters
 

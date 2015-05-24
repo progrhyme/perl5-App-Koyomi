@@ -33,6 +33,14 @@ sub datasource_job {
     $ds_module->instance(ctx => $self);
 }
 
+sub datasource_semaphore {
+    my $self = shift // __PACKAGE__->instance;
+    my $ds_module
+        = sprintf 'App::Koyomi::DataSource::Semaphore::%s', $self->config->{datasource}{module}{semaphore};
+    load $ds_module;
+    $ds_module->instance(ctx => $self);
+}
+
 sub now {
     my $self = shift;
     DateTime->now(time_zone => $self->config->time_zone);
