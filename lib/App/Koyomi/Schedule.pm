@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/config ds_job jobs/],
+    ro => [qw/ctx config ds_job jobs/],
     rw => [qw/last_updated_at/],
 );
 use DateTime;
@@ -24,6 +24,7 @@ sub instance {
     );
     $SCHEDULE //= sub {
         my %obj = (
+            ctx             => $ctx,
             config          => $ctx->config,
             ds_job          => $ctx->datasource_job,
             jobs            => undef,
@@ -36,7 +37,7 @@ sub instance {
 
 sub update {
     my $self = shift;
-    my $now  = shift // DateTime->now(time_zone => $self->config->time_zone);
+    my $now  = shift // $self->ctx->now;
 
     if ($now->epoch - $self->last_updated_at < $self->config->{schedule}{update_interval_seconds}) {
         debugf('no need to update schedule');
@@ -56,7 +57,7 @@ sub _update_jobs {
 
 sub get_jobs {
     my $self = shift;
-    my $now  = shift // DateTime->now(time_zone => $self->config->time_zone);
+    my $now  = shift // $self->ctx->now;
     debugf($now->strftime('%FT%T %a'));
 
     # Fetch scheduled jobs

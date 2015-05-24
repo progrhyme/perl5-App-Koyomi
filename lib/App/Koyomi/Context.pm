@@ -6,6 +6,7 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/config/],
 );
+use DateTime;
 use Module::Load;
 
 use App::Koyomi::Config;
@@ -30,6 +31,11 @@ sub datasource_job {
         = sprintf 'App::Koyomi::DataSource::Job::%s', $self->config->{datasource}{module}{job};
     load $ds_module;
     $ds_module->instance(ctx => $self);
+}
+
+sub now {
+    my $self = shift;
+    DateTime->now(time_zone => $self->config->time_zone);
 }
 
 sub is_debug {

@@ -75,7 +75,7 @@ sub _now {
         my $t = Time::Piece->strptime($debug_datestr, '%Y-%m-%dT%H:%M');
         return DateTime->from_epoch(epoch => $t->epoch);
     }
-    return DateTime->now(time_zone => $self->config->time_zone);
+    return $self->ctx->now;
 }
 
 1;
