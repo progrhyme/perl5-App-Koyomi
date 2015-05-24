@@ -3,7 +3,7 @@ package App::Koyomi::Logger;
 use strict;
 use warnings;
 use 5.010_001;
-use Log::Minimal env_debug => 'KOYOMI_DEBUG';
+use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 
 use version; our $VERSION = 'v0.1.0';
@@ -13,7 +13,7 @@ sub bootstrap {
         my $class,
         my $config => 'App::Koyomi::Config',
     );
-    $ENV{KOYOMI_DEBUG} ||= 1 if $config->{log}{debug};
+    $ENV{KOYOMI_LOG_DEBUG} ||= 1 if $config->{log}{debug};
 
     $Log::Minimal::PRINT = sub {
         my ($time, $type, $message, $trace, $raw_message) = @_;

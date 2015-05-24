@@ -8,7 +8,7 @@ use Class::Accessor::Lite (
     rw => [qw/last_updated_at/],
 );
 use DateTime;
-use Log::Minimal env_debug => 'KOYOMI_DEBUG';
+use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 
 use App::Koyomi::Job;

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 use File::Spec;
-use Log::Minimal env_debug => 'KOYOMI_DEBUG';
+use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Perl6::Slurp;
 use TOML qw(from_toml);
 

@@ -7,7 +7,7 @@ use Class::Accessor::Lite (
     ro => [qw/data/],
 );
 use IPC::Cmd;
-use Log::Minimal env_debug => 'KOYOMI_DEBUG';
+use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 
 use version; our $VERSION = 'v0.1.0';
