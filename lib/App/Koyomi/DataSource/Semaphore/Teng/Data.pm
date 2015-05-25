@@ -41,24 +41,35 @@ sub new {
     }, $class;
 }
 
-sub update {
+sub update_with_condition {
     args(
         my $self,
-        my $data => 'HashRef',
+        my $data  => 'HashRef',
+        my $where => 'HashRef',
     );
     my $teng = $self->row->handle;
 
     my %stash = %$data;
+    my %cond  = %$where;
     for my $col (qw/created_on run_date updated_at/) {
-        next unless $data->{$col};
-        $stash{$col} = DateTime::Format::MySQL->format_datetime($data->{$col});
+        if ($data->{$col}) {
+            $stash{$col} = DateTime::Format::MySQL->format_datetime($data->{$col});
+        }
+        if ($where->{$col}) {
+            $cond{$col} = DateTime::Format::MySQL->format_datetime($where->{$col});
+        }
     }
 
     my $txn = $teng->txn_scope;
-    $self->row->update(\%stash);
-    $txn->commit;
+    my $updated = $self->row->update(\%stash, \%cond);
+    if ($updated) {
+        $txn->commit;
+        return 1;
+    } else {
+        $txn->rollback;
+        return 0;
+    }
 
-    return 1;
 }
 
 1;

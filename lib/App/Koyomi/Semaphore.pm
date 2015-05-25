@@ -44,11 +44,19 @@ sub consume {
         return;
     }
 
-    my $ret = $semaphore->update(data => +{
-        run_host => hostname,
-        run_pid  => $$,
-        run_date => $now,
-    });
+    my $ret = $semaphore->update_with_condition(
+        data => +{
+            run_host => hostname,
+            run_pid  => $$,
+            run_date => $now,
+        },
+        where => +{
+            run_date => $semaphore->run_date,
+        });
+
+    unless ($ret) {
+        warnf(q/%s Failed to update semaphore; Probably another process got lock./, $header);
+    }
 
     return $ret;
 }
