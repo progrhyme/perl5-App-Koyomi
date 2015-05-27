@@ -1,6 +1,10 @@
 Revision history for Perl extension App-Koyomi
 
-{{$NEXT}}
+2015-05-28 v0.1.0  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
-    - original version
+    - Initial Release.
+    - Feature: koyomi worker job scheduler
+    - Feature: Customizable config file
+    - Feature: Teng w/ MySQL support for Job Datastore
+    - Feature: Lock record for Teng w/ MySQL not to run job coincidently
 
