@@ -1,6 +1,13 @@
 # Koyomi
 
-This program is **under development**.
+**Koyomi** is a simple distributed job scheduler which achieves High Availability.
+
+You can run _koyomi worker_ on several servers.
+Then if one worker stops with a certain trouble, remaining alive workers will take after its jobs.
+
+# DOCUMENTATION
+
+Full documentation is available on http://key-amb.github.io/App-Koyomi-Doc/ .
 
 # LICENSE
 

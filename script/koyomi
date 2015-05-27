@@ -24,10 +24,17 @@ B<koyomi> - koyomi worker
 
 =head1 DESCRIPTION
 
-This script is ...
+This script is a job scheduler program like I<crond>.
+
+I<Koyomi> executes scheduled jobs every minute and keeps running until someone stops it.
+
+=head1 DOCUMENTATION
+
+Full documentation is available on http://key-amb.github.io/App-Koyomi-Doc/ .
 
 =head1 SEE ALSO
 
+L<App::Koyomi>,
 L<App::Koyomi::Worker>
 
 =head1 AUTHORS

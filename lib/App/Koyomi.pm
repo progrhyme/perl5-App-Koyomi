@@ -13,15 +13,27 @@ __END__
 
 =head1 NAME
 
-App::Koyomi - It's new $module
+App::Koyomi - A simple distributed job scheduler
 
 =head1 SYNOPSIS
 
     use App::Koyomi;
+    # run worker
+    App::Koyomi::Worker->new(@args)->run;
 
 =head1 DESCRIPTION
 
-App::Koyomi is ...
+App::Koyomi is a job scheduler application module.
+You can run I<koyomi> worker on several servers.
+Then if one worker stops, remaining workers will take after its jobs.
+
+=head1 DOCUMENTATION
+
+Full documentation is available on http://key-amb.github.io/App-Koyomi-Doc/ .
+
+=head1 SEE ALSO
+
+L<koyomi>
 
 =head1 AUTHORS
 

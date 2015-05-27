@@ -98,7 +98,7 @@ B<App::Koyomi::Worker> - koyomi worker module
 
 =head1 DESCRIPTION
 
-This module is ...
+I<Koyomi> worker module.
 
 =head1 METHODS
 
@@ -116,7 +116,8 @@ Runs worker.
 
 =head1 SEE ALSO
 
-L<script/koyomi>
+L<koyomi>,
+L<App::Koyomi::Context>
 
 =head1 AUTHORS
 
