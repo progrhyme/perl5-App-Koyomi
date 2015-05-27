@@ -15,17 +15,12 @@ __END__
 
 App::Koyomi - A simple distributed job scheduler
 
-=head1 SYNOPSIS
-
-    use App::Koyomi;
-    # run worker
-    App::Koyomi::Worker->new(@args)->run;
-
 =head1 DESCRIPTION
 
-App::Koyomi is a job scheduler application module.
-You can run I<koyomi> worker on several servers.
-Then if one worker stops, remaining workers will take after its jobs.
+B<Koyomi> is a simple distributed job scheduler which achieves High Availability.
+
+You can run I<koyomi worker> on several servers.
+Then if one worker stops with any trouble, remaining workers will take after its jobs.
 
 =head1 DOCUMENTATION
 
