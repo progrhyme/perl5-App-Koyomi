@@ -13,3 +13,12 @@ on test => sub {
     requires 'Test::Base', '0.88';
     requires 'Test::More', '1.001009';
 };
+
+on build => sub {
+    requires 'TAP::Harness', '3.34';
+};
+
+on configure => sub {
+    requires 'Module::Build', '0.42';
+    requires 'Module::CPANfile', '0.9010';
+};

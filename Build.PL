@@ -2,8 +2,11 @@ use strict;
 use warnings;
 use Cwd;
 use Module::Build;
+use Module::CPANfile;
 
 my $cwd = Cwd::cwd();
+my $file = Module::CPANfile->load('cpanfile');
+my $prereq = $file->prereq_specs;
 
 my %args = (
     module_name          => 'App::Koyomi',
@@ -16,12 +19,9 @@ my %args = (
     tap_harness_args     => {
         lib => ["$cwd/lib", "$cwd/t/lib"],
     },
-    configure_requires       => {
-        'Module::Build' => 0.42,
-    },
-    build_requires       => {
-        'TAP::Harness'  => 3.34,
-    },
+    configure_requires   => $prereq->{configure}->{requires},
+    build_requires       => $prereq->{build}->{requires},
+    requires             => $prereq->{runtime}->{requires},
 );
 
 my $builder = Module::Build->subclass(

@@ -4,7 +4,7 @@
       "YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4205",
+   "generated_by" : "Module::Build version 0.421",
    "license" : [
       "perl_5"
    ],
@@ -21,7 +21,22 @@
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.42"
+            "Module::Build" : "0.42",
+            "Module::CPANfile" : "0.9010"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Class::Accessor::Lite" : "0.08",
+            "DateTime" : "1.18",
+            "DateTime::Format::MySQL" : "0.05",
+            "DateTime::TimeZone" : "1.88",
+            "Log::Minimal" : "0.19",
+            "Module::Load" : "0.32",
+            "Perl6::Slurp" : "0.051005",
+            "Smart::Args" : "0.12",
+            "TOML" : "0.96",
+            "Teng" : "0.28"
          }
       }
    },
