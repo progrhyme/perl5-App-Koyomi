@@ -13,6 +13,7 @@ my %args = (
     license              => 'perl',
     dist_author          => 'YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>',
     dist_version_from    => 'lib/App/Koyomi.pm',
+    script_files         => [glob('script/*'), glob('bin/*')],
     add_to_cleanup       => ['App-Koyomi-*'],
     test_files           => 't/',
     recursive_test_files => 1,
