@@ -2,6 +2,10 @@ Revision history for Perl extension App-Koyomi
 
 {{$NEXT}}
 
+2015-05-29 v0.1.4  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
+
+    - Fix: Include script/koyomi to dist package
+
 2015-05-28 v0.1.3  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
     - Fix: Module requirements in META.json

@@ -7,7 +7,7 @@ use Teng::Schema::Declare;
 
 use App::Koyomi::Job;
 
-use version; our $VERSION = 'v0.1.3';
+use version; our $VERSION = 'v0.1.4';
 
 table {
     name    'jobs';
