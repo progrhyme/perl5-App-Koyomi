@@ -20,7 +20,10 @@ my %args = (
         lib => ["$cwd/lib", "$cwd/t/lib"],
     },
     configure_requires   => $prereq->{configure}->{requires},
-    build_requires       => $prereq->{build}->{requires},
+    build_requires       => {
+        %{$prereq->{build}->{requires}},
+        %{$prereq->{test}->{requires}},
+    },
     requires             => $prereq->{runtime}->{requires},
 );
 

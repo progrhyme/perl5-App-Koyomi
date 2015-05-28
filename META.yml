@@ -4,11 +4,13 @@ author:
   - 'YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>'
 build_requires:
   TAP::Harness: '3.34'
+  Test::Base: '0.88'
+  Test::More: '1.001009'
 configure_requires:
   Module::Build: '0.42'
   Module::CPANfile: '0.9010'
 dynamic_config: 1
-generated_by: 'Module::Build version 0.421, CPAN::Meta::Converter version 2.143240'
+generated_by: 'Module::Build version 0.4205, CPAN::Meta::Converter version 2.143240'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html

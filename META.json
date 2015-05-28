@@ -4,7 +4,7 @@
       "YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.421",
+   "generated_by" : "Module::Build version 0.4205",
    "license" : [
       "perl_5"
    ],
@@ -16,7 +16,9 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "TAP::Harness" : "3.34"
+            "TAP::Harness" : "3.34",
+            "Test::Base" : "0.88",
+            "Test::More" : "1.001009"
          }
       },
       "configure" : {
