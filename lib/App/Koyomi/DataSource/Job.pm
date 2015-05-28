@@ -5,7 +5,7 @@ use warnings;
 use 5.010_001;
 use Carp qw(croak);
 
-use version; our $VERSION = 'v0.1.0';
+use version; our $VERSION = 'v0.1.1';
 
 sub instance { croak 'Must implement in child class!'; }
 

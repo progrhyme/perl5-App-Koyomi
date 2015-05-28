@@ -13,7 +13,7 @@ use App::Koyomi::DataSource::Job::Teng::Schema;
 
 use parent qw(App::Koyomi::DataSource::Job);
 
-use version; our $VERSION = 'v0.1.0';
+use version; our $VERSION = 'v0.1.1';
 
 my $JOB;
 

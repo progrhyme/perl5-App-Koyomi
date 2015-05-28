@@ -12,7 +12,7 @@ use Time::Piece;
 use App::Koyomi::Context;
 use App::Koyomi::Schedule;
 
-use version; our $VERSION = 'v0.1.0';
+use version; our $VERSION = 'v0.1.1';
 
 sub new {
     my $class = shift;
