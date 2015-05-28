@@ -79,16 +79,19 @@ __END__
 
 =head1 NAME
 
-App::Koyomi::DataSource::Semaphore::Teng::Data - Teng::Data class for semaphore datasource
+App::Koyomi::DataSource::Semaphore::Teng::Data - Wrapper class to represents a record of semaphore datasource
 
 =head1 SYNOPSIS
 
     use App::Koyomi::DataSource::Semaphore::Teng::Data;
-    my $data = App::Koyomi::DataSource::Semaphore::Teng::Data->new(%args);
+    my $data = App::Koyomi::DataSource::Semaphore::Teng::Data->new(
+        row => $row, # Teng::Row
+        ctx => $ctx, # App::Koyomi::Context
+    );
 
 =head1 DESCRIPTION
 
-Teng::Data class for semaphore datasource.
+Wrapper class of I<Teng::Row> for semaphore datasource.
 
 =head1 SEE ALSO
 

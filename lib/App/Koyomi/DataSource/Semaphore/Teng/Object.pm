@@ -15,7 +15,7 @@ __END__
 
 =head1 NAME
 
-App::Koyomi::DataSource::Semaphore::Teng::Object - Teng::Object class for semaphore datasource
+App::Koyomi::DataSource::Semaphore::Teng::Object - Teng's subclass for semaphore datasource
 
 =head1 SYNOPSIS
 
@@ -24,7 +24,7 @@ App::Koyomi::DataSource::Semaphore::Teng::Object - Teng::Object class for semaph
 
 =head1 DESCRIPTION
 
-Teng::Object class for semaphore datasource.
+Teng's subclass for semaphore datasource.
 
 =head1 SEE ALSO
 

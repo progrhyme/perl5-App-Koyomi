@@ -15,7 +15,7 @@ __END__
 
 =head1 NAME
 
-App::Koyomi::DataSource::Job::Teng::Object - Teng::Object class for job datasource
+App::Koyomi::DataSource::Job::Teng::Object - Teng's subclass for job datasource
 
 =head1 SYNOPSIS
 
@@ -24,7 +24,7 @@ App::Koyomi::DataSource::Job::Teng::Object - Teng::Object class for job datasour
 
 =head1 DESCRIPTION
 
-Teng::Object class for job datasource.
+Teng's subclass for job datasource.
 
 =head1 SEE ALSO
 
