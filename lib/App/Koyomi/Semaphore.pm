@@ -12,7 +12,7 @@ use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 use Sys::Hostname;
 
-use version; our $VERSION = 'v0.1.2';
+use version; our $VERSION = 'v0.1.3';
 
 sub consume {
     args(

@@ -13,7 +13,7 @@ use Smart::Args;
 
 use App::Koyomi::Semaphore;
 
-use version; our $VERSION = 'v0.1.2';
+use version; our $VERSION = 'v0.1.3';
 
 our @FIELDS = qw/
 id user command memo year month day hour minute weekday created_on updated_at
