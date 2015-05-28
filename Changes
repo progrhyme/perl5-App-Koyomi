@@ -2,6 +2,10 @@ Revision history for Perl extension App-Koyomi
 
 {{$NEXT}}
 
+2015-05-28 v0.1.2  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
+
+    - Fix: Module requirements in META.json
+
 2015-05-28 v0.1.1  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
     - Fix: Some wrongness of PODs related to Teng DataSource
