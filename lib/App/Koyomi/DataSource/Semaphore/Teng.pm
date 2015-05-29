@@ -14,7 +14,7 @@ use App::Koyomi::DataSource::Semaphore::Teng::Schema;
 
 use parent qw(App::Koyomi::DataSource::Semaphore);
 
-use version; our $VERSION = 'v0.1.4';
+use version; our $VERSION = 'v0.2.0';
 
 my $SEMAPHORE;
 

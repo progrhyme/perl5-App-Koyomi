@@ -2,6 +2,11 @@ Revision history for Perl extension App-Koyomi
 
 {{$NEXT}}
 
+2015-05-30 v0.2.0  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
+
+    - Change: Divide jobs' timetable datasource from jobs data
+    - Improvement: Safely update jobs to improve worker's availability
+
 2015-05-29 v0.1.4  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
     - Fix: Include script/koyomi to dist package
