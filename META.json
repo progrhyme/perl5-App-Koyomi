@@ -63,6 +63,10 @@
          "file" : "lib/App/Koyomi/DataSource/Job/Teng.pm",
          "version" : "v0.1.4"
       },
+      "App::Koyomi::DataSource::Job::Teng::Data" : {
+         "file" : "lib/App/Koyomi/DataSource/Job/Teng/Data.pm",
+         "version" : "v0.1.4"
+      },
       "App::Koyomi::DataSource::Job::Teng::Object" : {
          "file" : "lib/App/Koyomi/DataSource/Job/Teng/Object.pm",
          "version" : "v0.1.4"
