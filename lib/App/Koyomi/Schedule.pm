@@ -66,13 +66,25 @@ sub get_jobs {
 sub _filter_current_jobs {
     my ($all_jobs, $now) = @_;
 
+    my @matched;
+    for my $job (@$all_jobs) {
+        if ( _filter_job_times($job->times, $now) ) {
+            push(@matched, $job);
+        }
+    }
+    return @matched;
+}
+
+sub _filter_job_times {
+    my ($times, $now) = @_;
+
     # all conditions but day and day-of-week
     my @jobs = grep {
            ( $_->year   eq '*' || $_->year   == $now->year   )
         && ( $_->month  eq '*' || $_->month  == $now->month  )
         && ( $_->hour   eq '*' || $_->hour   == $now->hour   )
         && ( $_->minute eq '*' || $_->minute == $now->minute )
-    } @$all_jobs;
+    } @$times;
 
     # day and day-of-week conditions
     @jobs = grep {
