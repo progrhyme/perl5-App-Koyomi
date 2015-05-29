@@ -8,6 +8,7 @@ use Class::Accessor::Lite (
 );
 use Smart::Args;
 
+use App::Koyomi::DataSource::Job::Teng::Data;
 use App::Koyomi::DataSource::Job::Teng::Object;
 use App::Koyomi::DataSource::Job::Teng::Schema;
 
@@ -40,9 +41,26 @@ sub instance {
 }
 
 sub gets {
-    my $self = shift;
-    my $itr = $self->teng->search('jobs' => +{});
-    return $itr->all;
+    args(
+        my $self,
+        my $ctx => 'App::Koyomi::Context',
+    );
+
+    my @jobs  = $self->teng->search('jobs'      => +{})->all;
+    my @times = $self->teng->search('job_times' => +{})->all;
+
+    my @data;
+    for my $job (@jobs) {
+        my @_t = grep { $_->job_id == $job->id } @times;
+        my $d  = App::Koyomi::DataSource::Job::Teng::Data->new(
+            ctx   => $ctx,
+            job   => $job,
+            times => \@_t,
+        );
+        push(@data, $d);
+    }
+
+    return @data;
 }
 
 1;

@@ -5,7 +5,7 @@ use DateTime;
 use Time::Piece;
 
 use App::Koyomi::Schedule;
-use Test::Koyomi::Job;
+use Test::Koyomi::JobTime;
 
 plan tests => 1 * blocks;
 
@@ -19,12 +19,12 @@ run {
     my $block = shift;
 
     my @job_date = split(/ /, $block->job_date);
-    my $job = Test::Koyomi::Job->mock(@job_date);
+    my $job = Test::Koyomi::JobTime->mock(@job_date);
 
     my $now_t = Time::Piece->strptime($block->executed_on, '%Y-%m-%dT%H:%M');
     my $now = DateTime->from_epoch(epoch => $now_t->epoch);
 
-    my @jobs = App::Koyomi::Schedule::_filter_current_jobs([$job], $now);
+    my @jobs = App::Koyomi::Schedule::_filter_job_times([$job], $now);
 
     diag sprintf q{Job: '%s/%s/%s %s:%s (%s)', Now: '%s'}, @job_date, $block->executed_on;
 

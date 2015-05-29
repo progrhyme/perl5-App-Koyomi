@@ -1,4 +1,4 @@
-package Test::Koyomi::Job;
+package Test::Koyomi::JobTime;
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use App::Koyomi::Job;
 
 use version; our $VERSION = 'v0.1.0';
 
-Class::Accessor::Lite->mk_ro_accessors(@App::Koyomi::Job::FIELDS);
+Class::Accessor::Lite->mk_ro_accessors(@App::Koyomi::Job::TIME_FIELDS);
 
 sub mock {
     args_pos(
@@ -40,11 +40,11 @@ __END__
 
 =head1 NAME
 
-B<Test::Koyomi::Job> - koyomi job test module
+B<Test::Koyomi::JobTime> - koyomi job test module
 
 =head1 SYNOPSIS
 
-    use Test::Koyomi::Job;
+    use Test::Koyomi::JobTime;
 
 =head1 DESCRIPTION
 
@@ -56,7 +56,7 @@ This module is for test about job.
 
 =item B<mock>
 
-Create mock job object.
+Create mock job time object.
 
 =back
 

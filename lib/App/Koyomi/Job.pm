@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/ctx data/],
+    ro => [qw/ctx data times/],
 );
 use DateTime;
 use IPC::Cmd;
@@ -15,13 +15,12 @@ use App::Koyomi::Semaphore;
 
 use version; our $VERSION = 'v0.1.4';
 
-our @FIELDS = qw/
-id user command memo year month day hour minute weekday created_on updated_at
-/;
+our @JOB_FIELDS  = qw/id user command memo created_on updated_at/;
+our @TIME_FIELDS = qw/job_id year month day hour minute weekday created_on updated_at/;
 
 {
     no strict 'refs';
-    for my $field (@FIELDS) {
+    for my $field (@JOB_FIELDS) {
         *{ __PACKAGE__ . '::' . $field } = sub {
             my $self = shift;
             $self->data->$field;
@@ -39,18 +38,15 @@ sub get_jobs {
         my $class,
         my $ctx => 'App::Koyomi::Context',
     );
-    my @data = $ctx->datasource_job->gets;
+    my @data = $ctx->datasource_job->gets(ctx => $ctx);
     my @jobs;
     for my $d (@data) {
         my $job = bless +{
-            ctx  => $ctx,
-            data => $d,
+            ctx   => $ctx,
+            data  => $d,
+            times => $d->times,
         }, $class;
-        debugf(
-            q/(id,user,command,time) = (%d,%s,"%s","%s %s %s %s %s")/,
-            $job->id, $job->user || '<NULL>', $job->command, $job->minute,
-            $job->hour, $job->day, $job->month, $job->weekday
-        );
+        debugf(q/(id,user,command) = (%d,%s,"%s")/, $job->id, $job->user || '<NULL>', $job->command);
         push(@jobs, $job);
     }
     return \@jobs;

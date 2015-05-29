@@ -35,8 +35,8 @@ sub consume {
     }
 
     my $ttl = $ctx->config->{job}{lock_ttl_seconds};
+    debugf(q/now:%d semaphore:%d diff:%d/, $now->epoch, $semaphore->run_date->epoch, $now->epoch - $semaphore->run_date->epoch);
     if ($now->epoch - $semaphore->run_date->epoch < $ttl) {
-        debugf(q/now:%d semaphore:%d diff:%d/, $now->epoch, $semaphore->run_date->epoch, $now->epoch - $semaphore->run_date->epoch);
         debugf(
             q/%s run on another proc. Host=%s, Pid=%d, Run_On='%s'/,
             $header, $semaphore->run_host, $semaphore->run_pid, $semaphore->run_date->datetime

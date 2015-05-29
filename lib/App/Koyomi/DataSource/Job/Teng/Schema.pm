@@ -12,7 +12,13 @@ use version; our $VERSION = 'v0.1.4';
 table {
     name    'jobs';
     pk      'id';
-    columns @App::Koyomi::Job::FIELDS;
+    columns @App::Koyomi::Job::JOB_FIELDS;
+};
+
+table {
+    name    'job_times';
+    pk      'job_id';
+    columns @App::Koyomi::Job::TIME_FIELDS;
 };
 
 1;
