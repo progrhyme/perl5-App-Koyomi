@@ -44,14 +44,21 @@ sub update {
     }
 
     debugf('update schedule');
-    $self->_update_jobs;
-    $self->last_updated_at($now->epoch);
+    $self->_update_jobs && $self->last_updated_at($now->epoch);
     #debugf(ddf($self->jobs));
 }
 
 sub _update_jobs {
     my $self = shift;
-    $self->{jobs} = App::Koyomi::Job->get_jobs(ctx => $self->ctx);
+    my $jobs = eval {
+        App::Koyomi::Job->get_jobs(ctx => $self->ctx);
+    };
+    if ($@) {
+        critf('FAILED to fetch jobs!! ERROR = %s', $@);
+        return 0;
+    }
+    $self->{jobs} = $jobs;
+    return 1;
 }
 
 sub get_jobs {
