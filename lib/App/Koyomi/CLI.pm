@@ -8,6 +8,7 @@ use Class::Accessor::Lite (
 );
 use Getopt::Long qw(:config posix_default no_ignore_case no_ignore_case_always);
 use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
+use Text::ASCIITable;
 
 use App::Koyomi::Context;
 
@@ -34,6 +35,29 @@ sub parse_args {
 
     Getopt::Long::GetOptionsFromArray(\@args, \my %opt);
     return ($method, \%opt);
+}
+
+sub list {
+    my $self = shift;
+
+    my @job_cols  = qw/id user command/;
+    my @time_cols = qw/Y m d H M weekday/;
+    my $t = Text::ASCIITable->new();
+    $t->setCols(@job_cols, @time_cols);
+
+    my @time_keys = qw/year month day hour minute weekday/;
+
+    my $ctx  = $self->ctx;
+    my @jobs = $ctx->datasource_job->gets(ctx => $ctx);
+    for my $job (@jobs) {
+        my @job_row = map { $job->$_ } @job_cols;
+        for my $time (@{$job->times}) {
+            my @row = (@job_row, map { $time->$_ } @time_keys);
+            $t->addRow(@row);
+        }
+    }
+
+    print $t->draw;
 }
 
 1;
@@ -72,7 +96,6 @@ NOT implemented yet.
 =item B<list>
 
 List scheduled jobs.
-NOT implemented yet.
 
 =item B<modify>
 
