@@ -1432,6 +1432,19 @@ DISTRIBUTIONS
       XSLoader 0
       parent 0
       perl 5.008005
+  Module-CPANfile-1.1000
+    pathname: M/MI/MIYAGAWA/Module-CPANfile-1.1000.tar.gz
+    provides:
+      Module::CPANfile 1.1000
+      Module::CPANfile::Environment undef
+      Module::CPANfile::Prereq undef
+      Module::CPANfile::Prereqs undef
+      Module::CPANfile::Requirement undef
+    requirements:
+      CPAN::Meta 2.12091
+      CPAN::Meta::Prereqs 2.12091
+      ExtUtils::MakeMaker 0
+      parent 0
   Module-Implementation-0.09
     pathname: D/DR/DROLSKY/Module-Implementation-0.09.tar.gz
     provides:
