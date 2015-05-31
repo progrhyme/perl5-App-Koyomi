@@ -2,6 +2,11 @@ Revision history for Perl extension App-Koyomi
 
 {{$NEXT}}
 
+2015-05-31 v0.3.0  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
+
+    - Feature: Enable to specify user to execute job command
+    - Fix: Allow multiple schedule records per job
+
 2015-05-30 v0.2.0  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
     - Change: Divide jobs' timetable datasource from jobs data
