@@ -7,6 +7,7 @@ requires 'Module::Load', '0.32';
 requires 'Perl6::Slurp', '0.051005';
 requires 'Smart::Args', '0.12';
 requires 'TOML', '0.96';
+requires 'Text::ASCIITable', '0.20';
 requires 'Teng', '0.28';
 
 on test => sub {
