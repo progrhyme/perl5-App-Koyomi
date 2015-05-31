@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS `job_times`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `job_times` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `job_id` int(10) unsigned NOT NULL,
   `year` varchar(4) NOT NULL DEFAULT '*' COMMENT 'Ex) 2015',
   `month` varchar(2) NOT NULL DEFAULT '*' COMMENT 'Ex) 3, 12',
@@ -32,7 +33,8 @@ CREATE TABLE `job_times` (
   `weekday` varchar(1) NOT NULL DEFAULT '*' COMMENT 'Day of week as number. Compatiable with crontab. Ex) 0, 6, 7',
   `created_on` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`job_id`)
+  PRIMARY KEY (`id`),
+  KEY idx_job_id (`job_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
