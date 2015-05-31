@@ -34,7 +34,9 @@ sub parse_args {
     }
 
     Getopt::Long::GetOptionsFromArray(\@args, \my %opt);
-    return ($method, \%opt);
+    my %cmd_args = ();
+    my %property = ();
+    return ($method, \%property, \%cmd_args);
 }
 
 sub list {
@@ -73,8 +75,8 @@ B<App::Koyomi::CLI> - Koyomi CLI module
 =head1 SYNOPSIS
 
     use App::Koyomi::CLI;
-    my ($method, $props) = App::Koyomi::CLI->parse_args(@ARGV);
-    App::Koyomi::CLI->new(%$props)->$method;
+    my ($method, $props, $args) = App::Koyomi::CLI->parse_args(@ARGV);
+    App::Koyomi::CLI->new(%$props)->$method(%$args);
 
 =head1 DESCRIPTION
 

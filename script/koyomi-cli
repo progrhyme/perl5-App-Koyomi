@@ -14,13 +14,13 @@ MAIN: {
 }
 
 sub main {
-    my ($method, $props) = App::Koyomi::CLI->parse_args(@ARGV);
+    my ($method, $props, $args) = App::Koyomi::CLI->parse_args(@ARGV);
 
     pod2usage() unless $method;
     pod2usage(-verbose => 1) if $method eq 'help';
     pod2usage(-verbose => 2) if $method eq 'man';
 
-    App::Koyomi::CLI->new(%$props)->$method;
+    App::Koyomi::CLI->new(%$props)->$method(%$args);
 }
 
 __END__
