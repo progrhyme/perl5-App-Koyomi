@@ -1,0 +1,60 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use 5.010_001;
+use Pod::Usage;
+
+use version; our $VERSION = 'v0.2.0';
+
+use App::Koyomi::CLI;
+
+MAIN: {
+    main() if __FILE__ eq $0;
+}
+
+sub main {
+    my ($method, $props) = App::Koyomi::CLI->parse_args(@ARGV);
+
+    pod2usage() unless $method;
+    pod2usage(-verbose => 1) if $method eq 'help';
+    pod2usage(-verbose => 2) if $method eq 'man';
+
+    App::Koyomi::CLI->new(%$props)->$method;
+}
+
+__END__
+
+=encoding utf8
+
+=head1 NAME
+
+B<koyomi-cli> - Koyomi CLI for job's CRUD
+
+=head1 SYNOPSIS
+
+    ./koyomi-cli <sub-command> ...
+
+=head1 DESCRIPTION
+
+CommandLine Interface for CRUD of jobs.
+
+=head1 SEE ALSO
+
+L<App::Koyomi>,
+L<App::Koyomi::CLI>
+
+=head1 AUTHORS
+
+YASUTAKE Kiyoshi E<lt>yasutake.kiyoshi@gmail.comE<gt>
+
+=head1 LICENSE
+
+Copyright (C) 2015 YASUTAKE Kiyoshi.
+
+This application is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.  That means either (a) the GNU General Public
+License or (b) the Artistic License.
+
+=cut
+
