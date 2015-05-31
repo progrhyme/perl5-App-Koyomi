@@ -62,9 +62,9 @@ sub proceed {
         return;
     }
 
-    my $user = $self->user || $ENV{USER} || $ENV{LOGNAME} || getlogin() || getpwuid($<) || '<Undefined>';
-    infof(q/%s USER=%s COMMAND="%s"/, $header, $user, $self->command);
-    my ($ok, $err, undef, $stdout, $stderr) = IPC::Cmd::run(command => $self->command);
+    my $user = $self->user || $self->_proc_user;
+    infof(q/%s USER=%s COMMAND="%s"/, $header, $user, $self->command_to_exec);
+    my ($ok, $err, undef, $stdout, $stderr) = IPC::Cmd::run(command => $self->command_to_exec);
     if ($ok) {
         infof(q/%s Succeeded./, $header);
         if (scalar(@$stdout)) {
@@ -87,6 +87,20 @@ sub proceed {
             critf(q/%d %s/, $self->id, $_) for @$stderr;
         }
     }
+}
+
+sub command_to_exec {
+    my $self = shift;
+    return ($self->user && $self->user ne $self->_proc_user)
+        ? sprintf('sudo -u %s %s', $self->user, $self->command)
+        : $self->command;
+}
+
+sub _proc_user {
+    my $self = shift;
+    return
+        $ENV{USER} || $ENV{LOGNAME} || getlogin() || getpwuid($<)
+            || croakf(q/Can't get user of process! id=%d/, $self->id);
 }
 
 sub _get_lock {
