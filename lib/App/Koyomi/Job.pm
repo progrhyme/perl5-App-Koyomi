@@ -16,7 +16,7 @@ use App::Koyomi::Semaphore;
 use version; our $VERSION = 'v0.2.0';
 
 our @JOB_FIELDS  = qw/id user command memo created_on updated_at/;
-our @TIME_FIELDS = qw/job_id year month day hour minute weekday created_on updated_at/;
+our @TIME_FIELDS = qw/id job_id year month day hour minute weekday created_on updated_at/;
 
 {
     no strict 'refs';

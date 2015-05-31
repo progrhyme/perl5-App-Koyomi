@@ -17,7 +17,7 @@ table {
 
 table {
     name    'job_times';
-    pk      'job_id';
+    pk      'id';
     columns @App::Koyomi::Job::TIME_FIELDS;
 };
 
