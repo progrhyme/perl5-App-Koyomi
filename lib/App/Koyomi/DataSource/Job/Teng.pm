@@ -6,6 +6,7 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/teng/],
 );
+use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 
 use App::Koyomi::DataSource::Job::Teng::Data;
@@ -61,6 +62,27 @@ sub gets {
     }
 
     return @data;
+}
+
+sub get_by_id {
+    args(
+        my $self,
+        my $id  => 'Int',
+        my $ctx => 'App::Koyomi::Context',
+    );
+
+    my $job = $self->teng->single('jobs' => +{ id => $id });
+    return unless $job;
+    my @times = $self->teng->search('job_times' => +{ job_id => $id })->all;
+    unless (@times) {
+        warnf(q/Job id=%d has no times records./, $id);
+    }
+
+    return App::Koyomi::DataSource::Job::Teng::Data->new(
+        ctx   => $ctx,
+        job   => $job,
+        times => \@times,
+    );
 }
 
 1;
