@@ -6,6 +6,7 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/teng/],
 );
+use DateTime::Format::MySQL;
 use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 
@@ -83,6 +84,52 @@ sub get_by_id {
         job   => $job,
         times => \@times,
     );
+}
+
+sub update_by_id {
+    args(
+        my $self,
+        my $id   => 'Int',
+        my $data => 'HashRef',
+        my $ctx  => 'App::Koyomi::Context',
+        my $now  => +{ isa => 'DateTime', optional => 1 },
+    );
+    $now ||= $ctx->now;
+    my $teng = $self->teng;
+
+    # Transaction
+    my $txn = $teng->txn_scope;
+
+    my $mysql_now = DateTime::Format::MySQL->format_datetime($now);
+    eval {
+        # update jobs
+        my %job = map { $_ => $data->{$_} } qw/user command memo/;
+        $job{updated_at} = $mysql_now;
+        my $updated = $teng->update('jobs', \%job, +{ id => $id });
+        unless ($updated) {
+            croakf(q/Update jobs Failed! id=%d, data=%s/, $id, ddf(\%job));
+        }
+
+        # replace job_times
+        $teng->delete('job_times', +{ job_id => $id });
+        for my $t (@{$data->{times}}) {
+            my %time = (
+                job_id => $id,
+                %$t,
+                created_on => $mysql_now,
+                updated_at => $mysql_now,
+            );
+            $teng->insert('job_times', \%time)
+                or croakf(q/Insert job_times Failed! data=%s/, ddf(\%time));
+        }
+    };
+    if ($@) {
+        $txn->rollback;
+        die $@;
+    }
+
+    $txn->commit;
+    return 1;
 }
 
 1;
