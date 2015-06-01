@@ -9,6 +9,7 @@ requires 'Smart::Args', '0.12';
 requires 'TOML', '0.96';
 requires 'Text::ASCIITable', '0.20';
 requires 'Teng', '0.28';
+requires 'YAML::XS', '0.54';
 
 on test => sub {
     requires 'Test::Base', '0.88';

@@ -1923,6 +1923,15 @@ DISTRIBUTIONS
       base 0
       lib 0
       perl 5.008
+  YAML-LibYAML-0.59
+    pathname: I/IN/INGY/YAML-LibYAML-0.59.tar.gz
+    provides:
+      YAML::LibYAML 0.59
+      YAML::XS 0.59
+      YAML::XS::LibYAML undef
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.008001
   common-sense-3.73
     pathname: M/ML/MLEHMANN/common-sense-3.73.tar.gz
     provides:
