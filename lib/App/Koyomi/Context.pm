@@ -11,7 +11,7 @@ use Module::Load;
 
 use App::Koyomi::Config;
 
-use version; our $VERSION = 'v0.3.0';
+use version; our $VERSION = 'v0.3.1';
 
 my $CONTEXT;
 

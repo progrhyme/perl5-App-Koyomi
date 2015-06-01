@@ -8,7 +8,7 @@ use Class::Accessor::Lite (
 );
 use Smart::Args;
 
-use version; our $VERSION = 'v0.3.0';
+use version; our $VERSION = 'v0.3.1';
 
 use App::Koyomi::DataSource::Job::Teng::JobTime;
 
