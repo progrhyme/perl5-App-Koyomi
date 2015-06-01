@@ -140,7 +140,7 @@ __END__
 
 =head1 NAME
 
-App::Koyomi::DataSource::Job::Teng - Teng interface as schedule datasource
+App::Koyomi::DataSource::Job::Teng - Teng interface as job datasource
 
 =head1 SYNOPSIS
 
@@ -151,10 +151,14 @@ App::Koyomi::DataSource::Job::Teng - Teng interface as schedule datasource
 =head1 DESCRIPTION
 
 Teng interface as datasource for koyomi job schedule.
+Subclass of L<App::Koyomi::DataSource::Job>.
+
+=head1 METHODS
+
+See L<App::Koyomi::DataSource::Job>.
 
 =head1 SEE ALSO
 
-L<App::Koyomi::DataSource::Job>,
 L<Teng>
 
 =head1 AUTHORS
