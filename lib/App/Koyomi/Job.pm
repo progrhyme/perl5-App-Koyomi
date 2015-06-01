@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 use Class::Accessor::Lite (
-    ro => [qw/ctx data times/],
+    ro => [qw/ctx times/],
 );
 use DateTime;
 use IPC::Cmd;
@@ -23,7 +23,7 @@ our @TIME_FIELDS = qw/id job_id year month day hour minute weekday created_on up
     for my $field (@JOB_FIELDS) {
         *{ __PACKAGE__ . '::' . $field } = sub {
             my $self = shift;
-            $self->data->$field;
+            $self->{_data}->$field;
         };
     }
 }
@@ -43,7 +43,7 @@ sub get_jobs {
     for my $d (@data) {
         my $job = bless +{
             ctx   => $ctx,
-            data  => $d,
+            _data => $d,
             times => $d->times,
         }, $class;
         debugf(q/(id,user,command) = (%d,%s,"%s")/, $job->id, $job->user || '<NULL>', $job->command);

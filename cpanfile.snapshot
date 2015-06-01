@@ -1432,6 +1432,19 @@ DISTRIBUTIONS
       XSLoader 0
       parent 0
       perl 5.008005
+  Module-CPANfile-1.1000
+    pathname: M/MI/MIYAGAWA/Module-CPANfile-1.1000.tar.gz
+    provides:
+      Module::CPANfile 1.1000
+      Module::CPANfile::Environment undef
+      Module::CPANfile::Prereq undef
+      Module::CPANfile::Prereqs undef
+      Module::CPANfile::Requirement undef
+    requirements:
+      CPAN::Meta 2.12091
+      CPAN::Meta::Prereqs 2.12091
+      ExtUtils::MakeMaker 0
+      parent 0
   Module-Implementation-0.09
     pathname: D/DR/DROLSKY/Module-Implementation-0.09.tar.gz
     provides:
@@ -1853,6 +1866,16 @@ DISTRIBUTIONS
       Scalar::Util 1.13
       Test::Harness 2.03
       perl 5.006
+  Text-ASCIITable-0.20
+    pathname: L/LU/LUNATIC/Text-ASCIITable-0.20.tar.gz
+    provides:
+      Text::ASCIITable 0.20
+      Text::ASCIITable::Wrap 0.2
+    requirements:
+      Carp 0
+      Encode 0
+      List::Util 0
+      perl v5.6.0
   Tie-IxHash-1.23
     pathname: C/CH/CHORNY/Tie-IxHash-1.23.tar.gz
     provides:
@@ -1900,6 +1923,15 @@ DISTRIBUTIONS
       base 0
       lib 0
       perl 5.008
+  YAML-LibYAML-0.59
+    pathname: I/IN/INGY/YAML-LibYAML-0.59.tar.gz
+    provides:
+      YAML::LibYAML 0.59
+      YAML::XS 0.59
+      YAML::XS::LibYAML undef
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.008001
   common-sense-3.73
     pathname: M/ML/MLEHMANN/common-sense-3.73.tar.gz
     provides:

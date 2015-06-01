@@ -6,6 +6,8 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/teng/],
 );
+use DateTime::Format::MySQL;
+use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 
 use App::Koyomi::DataSource::Job::Teng::Data;
@@ -63,6 +65,73 @@ sub gets {
     return @data;
 }
 
+sub get_by_id {
+    args(
+        my $self,
+        my $id  => 'Int',
+        my $ctx => 'App::Koyomi::Context',
+    );
+
+    my $job = $self->teng->single('jobs' => +{ id => $id });
+    return unless $job;
+    my @times = $self->teng->search('job_times' => +{ job_id => $id })->all;
+    unless (@times) {
+        warnf(q/Job id=%d has no times records./, $id);
+    }
+
+    return App::Koyomi::DataSource::Job::Teng::Data->new(
+        ctx   => $ctx,
+        job   => $job,
+        times => \@times,
+    );
+}
+
+sub update_by_id {
+    args(
+        my $self,
+        my $id   => 'Int',
+        my $data => 'HashRef',
+        my $ctx  => 'App::Koyomi::Context',
+        my $now  => +{ isa => 'DateTime', optional => 1 },
+    );
+    $now ||= $ctx->now;
+    my $teng = $self->teng;
+
+    # Transaction
+    my $txn = $teng->txn_scope;
+
+    my $mysql_now = DateTime::Format::MySQL->format_datetime($now);
+    eval {
+        # update jobs
+        my %job = map { $_ => $data->{$_} } qw/user command memo/;
+        $job{updated_at} = $mysql_now;
+        my $updated = $teng->update('jobs', \%job, +{ id => $id });
+        unless ($updated) {
+            croakf(q/Update jobs Failed! id=%d, data=%s/, $id, ddf(\%job));
+        }
+
+        # replace job_times
+        $teng->delete('job_times', +{ job_id => $id });
+        for my $t (@{$data->{times}}) {
+            my %time = (
+                job_id => $id,
+                %$t,
+                created_on => $mysql_now,
+                updated_at => $mysql_now,
+            );
+            $teng->insert('job_times', \%time)
+                or croakf(q/Insert job_times Failed! data=%s/, ddf(\%time));
+        }
+    };
+    if ($@) {
+        $txn->rollback;
+        die $@;
+    }
+
+    $txn->commit;
+    return 1;
+}
+
 1;
 
 __END__
@@ -71,7 +140,7 @@ __END__
 
 =head1 NAME
 
-App::Koyomi::DataSource::Job::Teng - Teng interface as schedule datasource
+App::Koyomi::DataSource::Job::Teng - Teng interface as job datasource
 
 =head1 SYNOPSIS
 
@@ -82,10 +151,14 @@ App::Koyomi::DataSource::Job::Teng - Teng interface as schedule datasource
 =head1 DESCRIPTION
 
 Teng interface as datasource for koyomi job schedule.
+Subclass of L<App::Koyomi::DataSource::Job>.
+
+=head1 METHODS
+
+See L<App::Koyomi::DataSource::Job>.
 
 =head1 SEE ALSO
 
-L<App::Koyomi::DataSource::Job>,
 L<Teng>
 
 =head1 AUTHORS

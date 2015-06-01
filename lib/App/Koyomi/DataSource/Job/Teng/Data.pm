@@ -10,6 +10,8 @@ use Smart::Args;
 
 use version; our $VERSION = 'v0.3.0';
 
+use App::Koyomi::DataSource::Job::Teng::JobTime;
+
 # Accessor for jobs.columns
 {
     no strict 'refs';
@@ -36,9 +38,15 @@ sub new {
         my $job   => 'Teng::Row',
         my $times => 'ArrayRef[Teng::Row]',
     );
+    my @my_times;
+    for my $time (@$times) {
+        my $my_t = App::Koyomi::DataSource::Job::Teng::JobTime->new(row => $time);
+        push(@my_times, $my_t);
+    }
+
     bless +{
         _job  => $job,
-        times => $times,
+        times => \@my_times,
         ctx   => $ctx,
     }, $class;
 }

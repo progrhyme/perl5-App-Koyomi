@@ -46,17 +46,24 @@ sub update_with_condition {
         my $self,
         my $data  => 'HashRef',
         my $where => 'HashRef',
+        my $ctx   => 'App::Koyomi::Context',
+        my $now   => +{ isa => 'DateTime', optional => 1 },
     );
+    $now ||= $ctx->now;
     my $teng = $self->row->handle;
 
     my %stash = %$data;
     my %cond  = %$where;
     for my $col (qw/created_on run_date updated_at/) {
-        if ($data->{$col}) {
-            $stash{$col} = DateTime::Format::MySQL->format_datetime($data->{$col});
-        }
         if ($where->{$col}) {
             $cond{$col} = DateTime::Format::MySQL->format_datetime($where->{$col});
+        }
+        if ($col eq 'updated_at') {
+            $stash{$col} = DateTime::Format::MySQL->format_datetime($now);
+            next;
+        }
+        if ($data->{$col}) {
+            $stash{$col} = DateTime::Format::MySQL->format_datetime($data->{$col});
         }
     }
 

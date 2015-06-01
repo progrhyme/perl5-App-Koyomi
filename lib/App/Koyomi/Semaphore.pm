@@ -52,7 +52,9 @@ sub consume {
         },
         where => +{
             run_date => $semaphore->run_date,
-        });
+        },
+        ctx => $ctx,
+    );
 
     unless ($ret) {
         warnf(q/%s Failed to update semaphore; Probably another process got lock./, $header);
