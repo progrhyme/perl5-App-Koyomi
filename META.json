@@ -38,13 +38,19 @@
             "Perl6::Slurp" : "0.051005",
             "Smart::Args" : "0.12",
             "TOML" : "0.96",
-            "Teng" : "0.28"
+            "Teng" : "0.28",
+            "Text::ASCIITable" : "0.20",
+            "YAML::XS" : "0.54"
          }
       }
    },
    "provides" : {
       "App::Koyomi" : {
          "file" : "lib/App/Koyomi.pm",
+         "version" : "v0.3.0"
+      },
+      "App::Koyomi::CLI" : {
+         "file" : "lib/App/Koyomi/CLI.pm",
          "version" : "v0.3.0"
       },
       "App::Koyomi::Config" : {
@@ -65,6 +71,10 @@
       },
       "App::Koyomi::DataSource::Job::Teng::Data" : {
          "file" : "lib/App/Koyomi/DataSource/Job/Teng/Data.pm",
+         "version" : "v0.3.0"
+      },
+      "App::Koyomi::DataSource::Job::Teng::JobTime" : {
+         "file" : "lib/App/Koyomi/DataSource/Job/Teng/JobTime.pm",
          "version" : "v0.3.0"
       },
       "App::Koyomi::DataSource::Job::Teng::Object" : {
@@ -97,6 +107,10 @@
       },
       "App::Koyomi::Job" : {
          "file" : "lib/App/Koyomi/Job.pm",
+         "version" : "v0.3.0"
+      },
+      "App::Koyomi::JobTime::Formatter" : {
+         "file" : "lib/App/Koyomi/JobTime/Formatter.pm",
          "version" : "v0.3.0"
       },
       "App::Koyomi::Logger" : {
