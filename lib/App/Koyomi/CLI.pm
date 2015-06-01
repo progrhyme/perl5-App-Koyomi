@@ -6,11 +6,16 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/ctx/],
 );
+use File::Temp qw(tempfile);
 use Getopt::Long qw(:config posix_default no_ignore_case no_ignore_case_always);
 use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
+use Perl6::Slurp;
+use Smart::Args;
 use Text::ASCIITable;
+use YAML::XS ();
 
 use App::Koyomi::Context;
+use App::Koyomi::JobTime::Formatter qw(str2time);
 
 use version; our $VERSION = 'v0.2.0';
 
@@ -33,8 +38,14 @@ sub parse_args {
         return;
     }
 
-    Getopt::Long::GetOptionsFromArray(\@args, \my %opt);
-    my %cmd_args = ();
+    Getopt::Long::GetOptionsFromArray(
+        \@args,          \my %opt,
+        'job-id|jid=i', 'editor|e=s',
+    );
+    my %cmd_args;
+    $cmd_args{job_id} = $opt{'job-id'} if $opt{'job-id'};
+    $cmd_args{editor} = $opt{editor}   if $opt{editor};
+
     my %property = ();
     return ($method, \%property, \%cmd_args);
 }
@@ -60,6 +71,49 @@ sub list {
     }
 
     print $t->draw;
+}
+
+sub modify {
+    args(
+        my $self,
+        my $job_id => 'Int',
+        my $editor => +{ isa => 'Str', default => $ENV{EDITOR} || 'vi' },
+    );
+
+    my $ctx = $self->ctx;
+    my $job = $ctx->datasource_job->get_by_id(
+        id  => $job_id,
+        ctx => $ctx
+    );
+    croakf(q/No such job! id=%d/, $job_id) unless $job;
+
+    my %data = (
+        user    => $job->user || q{},
+        command => $job->command,
+        memo    => $job->memo,
+    );
+
+    my @times = map { $_->time2str } @{$job->times};
+    $data{times} = \@times;
+
+    my $yaml = YAML::XS::Dump(\%data);
+
+    my ($fh, $tempfile) = tempfile();
+    print $fh $yaml;
+    close $fh;
+    system($editor, $tempfile);
+    my $new_yaml = slurp($tempfile);
+    unlink $tempfile;
+
+    my $new_data = YAML::XS::Load($new_yaml);
+    my @new_times = map { str2time($_) } @{$new_data->{times}};
+    $new_data->{times} = \@new_times;
+
+    $ctx->datasource_job->update_by_id(
+        id => $job_id, data => $new_data, ctx => $ctx
+    );
+
+    infof('[modify] Finished.');
 }
 
 1;
@@ -102,7 +156,6 @@ List scheduled jobs.
 =item B<modify>
 
 Modify a job schedule.
-NOT implemented yet.
 
 =item B<delete>
 
