@@ -8,6 +8,7 @@ use Class::Accessor::Lite (
 );
 use File::Temp qw(tempfile);
 use Getopt::Long qw(:config posix_default no_ignore_case no_ignore_case_always);
+use IO::Prompt::Tiny qw(prompt);
 use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Perl6::Slurp;
 use Smart::Args;
@@ -108,6 +109,11 @@ sub modify {
     my $new_data = YAML::XS::Load($new_yaml);
     my @new_times = map { str2time($_) } @{$new_data->{times}};
     $new_data->{times} = \@new_times;
+
+    if (prompt('Modify a job. OK? (y/n)', 'n') ne 'y') {
+        infof('[modify] Canceled.');
+        return;
+    }
 
     $ctx->datasource_job->update_by_id(
         id => $job_id, data => $new_data, ctx => $ctx
