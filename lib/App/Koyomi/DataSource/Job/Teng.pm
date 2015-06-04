@@ -100,11 +100,11 @@ sub update_by_id {
     # Transaction
     my $txn = $teng->txn_scope;
 
-    my $mysql_now = DateTime::Format::MySQL->format_datetime($now);
+    my $now_db = DateTime::Format::MySQL->format_datetime($now);
     eval {
         # update jobs
         my %job = map { $_ => $data->{$_} } qw/user command memo/;
-        $job{updated_at} = $mysql_now;
+        $job{updated_at} = $now_db;
         my $updated = $teng->update('jobs', \%job, +{ id => $id });
         unless ($updated) {
             croakf(q/Update jobs Failed! id=%d, data=%s/, $id, ddf(\%job));
@@ -116,8 +116,8 @@ sub update_by_id {
             my %time = (
                 job_id => $id,
                 %$t,
-                created_on => $mysql_now,
-                updated_at => $mysql_now,
+                created_on => $now_db,
+                updated_at => $now_db,
             );
             $teng->insert('job_times', \%time)
                 or croakf(q/Insert job_times Failed! data=%s/, ddf(\%time));
