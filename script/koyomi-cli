@@ -33,11 +33,14 @@ B<koyomi-cli> - Koyomi CLI for job's CRUD
 
 =head1 SYNOPSIS
 
+    # Add one Job
+    koyomi-cli add [-e <PATH of EDITOR>]
+
     # List Jobs
     koyomi-cli list
 
     # Modify one Job
-    koyomi-cli modify -jid <job_id> [-e <PATH of EDITOR>]
+    koyomi-cli modify -id <job_id> [-e <PATH of EDITOR>]
 
 =head1 DESCRIPTION
 

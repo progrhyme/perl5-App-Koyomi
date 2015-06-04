@@ -86,6 +86,50 @@ sub get_by_id {
     );
 }
 
+sub create {
+    args(
+        my $self,
+        my $data => 'HashRef',
+        my $ctx  => 'App::Koyomi::Context',
+        my $now  => +{ isa => 'DateTime', optional => 1 },
+    );
+    $now ||= $ctx->now;
+    my $teng = $self->teng;
+
+    # Transaction
+    my $txn = $teng->txn_scope;
+
+    my $now_db = DateTime::Format::MySQL->format_datetime($now);
+    eval {
+        # create jobs
+        my %job = map { $_ => $data->{$_} } qw/user command memo/;
+        $job{created_on} = $job{updated_at} = $now_db;
+        my $new_job = $teng->insert('jobs', \%job);
+        unless ($new_job) {
+            croakf(q/Insert jobs Failed! data=%s/, ddf(\%job));
+        }
+
+        # create job_times
+        for my $t (@{$data->{times}}) {
+            my %time = (
+                job_id => $new_job->id,
+                %$t,
+                created_on => $now_db,
+                updated_at => $now_db,
+            );
+            $teng->insert('job_times', \%time)
+                or croakf(q/Insert job_times Failed! data=%s/, ddf(\%time));
+        }
+    };
+    if ($@) {
+        $txn->rollback;
+        die $@;
+    }
+
+    $txn->commit;
+    return 1;
+}
+
 sub update_by_id {
     args(
         my $self,
@@ -100,11 +144,11 @@ sub update_by_id {
     # Transaction
     my $txn = $teng->txn_scope;
 
-    my $mysql_now = DateTime::Format::MySQL->format_datetime($now);
+    my $now_db = DateTime::Format::MySQL->format_datetime($now);
     eval {
         # update jobs
         my %job = map { $_ => $data->{$_} } qw/user command memo/;
-        $job{updated_at} = $mysql_now;
+        $job{updated_at} = $now_db;
         my $updated = $teng->update('jobs', \%job, +{ id => $id });
         unless ($updated) {
             croakf(q/Update jobs Failed! id=%d, data=%s/, $id, ddf(\%job));
@@ -116,8 +160,8 @@ sub update_by_id {
             my %time = (
                 job_id => $id,
                 %$t,
-                created_on => $mysql_now,
-                updated_at => $mysql_now,
+                created_on => $now_db,
+                updated_at => $now_db,
             );
             $teng->insert('job_times', \%time)
                 or croakf(q/Insert job_times Failed! data=%s/, ddf(\%time));

@@ -2,6 +2,7 @@ requires 'Class::Accessor::Lite', '0.08';
 requires 'DateTime', '1.18';
 requires 'DateTime::Format::MySQL', '0.05';
 requires 'DateTime::TimeZone', '1.88';
+requires 'IO::Prompt::Tiny', '0.003';
 requires 'Log::Minimal', '0.19';
 requires 'Module::Load', '0.32';
 requires 'Perl6::Slurp', '0.051005';

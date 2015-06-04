@@ -8,6 +8,7 @@ use Class::Accessor::Lite (
 );
 use File::Temp qw(tempfile);
 use Getopt::Long qw(:config posix_default no_ignore_case no_ignore_case_always);
+use IO::Prompt::Tiny qw(prompt);
 use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Perl6::Slurp;
 use Smart::Args;
@@ -16,6 +17,7 @@ use YAML::XS ();
 
 use App::Koyomi::Context;
 use App::Koyomi::JobTime::Formatter qw(str2time);
+use App::Koyomi::JobTime::Object;
 
 use version; our $VERSION = 'v0.3.1';
 
@@ -39,8 +41,8 @@ sub parse_args {
     }
 
     Getopt::Long::GetOptionsFromArray(
-        \@args,          \my %opt,
-        'job-id|jid=i', 'editor|e=s',
+        \@args,         \my %opt,
+        'job-id|id=i', 'editor|e=s',
     );
     my %cmd_args;
     $cmd_args{job_id} = $opt{'job-id'} if $opt{'job-id'};
@@ -48,6 +50,45 @@ sub parse_args {
 
     my %property = ();
     return ($method, \%property, \%cmd_args);
+}
+
+sub add {
+    args(
+        my $self,
+        my $editor => +{ isa => 'Str', default => $ENV{EDITOR} || 'vi' },
+    );
+
+    my $ctx = $self->ctx;
+
+    my %t = map { $_ => '*' } qw/year month day hour minute weekday/;
+    my $time = App::Koyomi::JobTime::Object->new(\%t);
+    my %data = (
+        user    => q{},
+        command => q{},
+        memo    => q{},
+        times   => [ $time->time2str ],
+    );
+    my $yaml = YAML::XS::Dump(\%data);
+
+    my ($fh, $tempfile) = tempfile();
+    print $fh $yaml;
+    close $fh;
+    system($editor, $tempfile);
+    my $new_yaml = slurp($tempfile);
+    unlink $tempfile;
+
+    my $new_data = YAML::XS::Load($new_yaml);
+    my @new_times = map { str2time($_) } @{$new_data->{times}};
+    $new_data->{times} = \@new_times;
+
+    if (prompt('Add a job. OK? (y/n)', 'n') ne 'y') {
+        infof('[add] Canceled.');
+        return;
+    }
+
+    $ctx->datasource_job->create(data => $new_data, ctx => $ctx);
+
+    infof('[add] Finished.');
 }
 
 sub list {
@@ -109,6 +150,11 @@ sub modify {
     my @new_times = map { str2time($_) } @{$new_data->{times}};
     $new_data->{times} = \@new_times;
 
+    if (prompt('Modify a job. OK? (y/n)', 'n') ne 'y') {
+        infof('[modify] Canceled.');
+        return;
+    }
+
     $ctx->datasource_job->update_by_id(
         id => $job_id, data => $new_data, ctx => $ctx
     );
@@ -147,7 +193,6 @@ Construction.
 =item B<add>
 
 Create a job schedule.
-NOT implemented yet.
 
 =item B<list>
 
