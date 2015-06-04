@@ -20,17 +20,7 @@ Revision history for Perl extension App-Koyomi
 2015-05-29 v0.1.4  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
     - Fix: Include script/koyomi to dist package
-
-2015-05-28 v0.1.3  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
-
     - Fix: Module requirements in META.json
-
-2015-05-28 v0.1.2  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
-
-    - Fix: Module requirements in META.json
-
-2015-05-28 v0.1.1  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
-
     - Fix: Some wrongness of PODs related to Teng DataSource
 
 2015-05-28 v0.1.0  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
