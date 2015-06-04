@@ -21,6 +21,7 @@ lib/App/Koyomi/DataSource/Semaphore/Teng/Object.pm
 lib/App/Koyomi/DataSource/Semaphore/Teng/Schema.pm
 lib/App/Koyomi/Job.pm
 lib/App/Koyomi/JobTime/Formatter.pm
+lib/App/Koyomi/JobTime/Object.pm
 lib/App/Koyomi/Logger.pm
 lib/App/Koyomi/Schedule.pm
 lib/App/Koyomi/Semaphore.pm

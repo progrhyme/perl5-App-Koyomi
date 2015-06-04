@@ -9,7 +9,7 @@ use Class::Accessor::Lite (
 use DateTime::Format::MySQL;
 use Smart::Args;
 
-use version; our $VERSION = 'v0.3.1';
+use version; our $VERSION = 'v0.3.2';
 
 {
     no strict 'refs';
