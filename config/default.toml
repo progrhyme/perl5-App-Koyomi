@@ -4,7 +4,7 @@
 #debug_mode = true
 
 [log]
-debug   = true
+#debug   = true
 console = true
 file    = true
 # file_path = /path/to/log
