@@ -1301,6 +1301,17 @@ DISTRIBUTIONS
       File::Spec 0
       Symbol 0
       Test::More 0.47
+  IO-Prompt-Tiny-0.003
+    pathname: D/DA/DAGOLDEN/IO-Prompt-Tiny-0.003.tar.gz
+    provides:
+      IO::Prompt::Tiny 0.003
+    requirements:
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 6.17
+      perl 5.006
+      strict 0
+      warnings 0
   List-AllUtils-0.09
     pathname: D/DR/DROLSKY/List-AllUtils-0.09.tar.gz
     provides:
