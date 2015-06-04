@@ -39,8 +39,8 @@ sub parse_args {
     }
 
     Getopt::Long::GetOptionsFromArray(
-        \@args,          \my %opt,
-        'job-id|jid=i', 'editor|e=s',
+        \@args,         \my %opt,
+        'job-id|id=i', 'editor|e=s',
     );
     my %cmd_args;
     $cmd_args{job_id} = $opt{'job-id'} if $opt{'job-id'};
