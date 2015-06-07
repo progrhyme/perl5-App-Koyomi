@@ -15,6 +15,7 @@ lib/App/Koyomi/DataSource/Job/Teng/JobTime.pm
 lib/App/Koyomi/DataSource/Job/Teng/Object.pm
 lib/App/Koyomi/DataSource/Job/Teng/Schema.pm
 lib/App/Koyomi/DataSource/Semaphore.pm
+lib/App/Koyomi/DataSource/Semaphore/None.pm
 lib/App/Koyomi/DataSource/Semaphore/Teng.pm
 lib/App/Koyomi/DataSource/Semaphore/Teng/Data.pm
 lib/App/Koyomi/DataSource/Semaphore/Teng/Object.pm
