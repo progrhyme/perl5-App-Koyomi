@@ -16,14 +16,14 @@ use parent qw(App::Koyomi::DataSource::Semaphore);
 
 use version; our $VERSION = 'v0.3.2';
 
-my $SEMAPHORE;
+my $DATASOURCE;
 
 sub instance {
     args(
         my $class,
         my $ctx => 'App::Koyomi::Context',
     );
-    $SEMAPHORE //= sub {
+    $DATASOURCE //= sub {
         my $connector
             = $ctx->config->{datasource}{connector}{semaphore}
             // $ctx->config->{datasource}{connector};
@@ -37,7 +37,7 @@ sub instance {
         my %obj = (teng => $teng);
         return bless \%obj, $class;
     }->();
-    return $SEMAPHORE;
+    return $DATASOURCE;
 }
 
 sub get_by_job_id {

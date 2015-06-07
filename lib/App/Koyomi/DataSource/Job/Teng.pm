@@ -18,14 +18,14 @@ use parent qw(App::Koyomi::DataSource::Job);
 
 use version; our $VERSION = 'v0.3.2';
 
-my $JOB;
+my $DATASOURCE;
 
 sub instance {
     args(
         my $class,
         my $ctx => 'App::Koyomi::Context',
     );
-    $JOB //= sub {
+    $DATASOURCE //= sub {
         my $connector
             = $ctx->config->{datasource}{connector}{job}
             // $ctx->config->{datasource}{connector};
@@ -39,7 +39,7 @@ sub instance {
         my %obj = (teng => $teng);
         return bless \%obj, $class;
     }->();
-    return $JOB;
+    return $DATASOURCE;
 }
 
 sub gets {
