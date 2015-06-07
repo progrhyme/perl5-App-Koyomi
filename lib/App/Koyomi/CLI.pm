@@ -21,7 +21,7 @@ use App::Koyomi::JobTime::Object;
 
 use version; our $VERSION = 'v0.3.2';
 
-my @CLI_METHODS = qw/add list modify delete/;
+my @CLI_METHODS = qw/help man add list modify delete/;
 
 sub new {
     my $class = shift;

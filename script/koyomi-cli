@@ -36,6 +36,10 @@ B<koyomi-cli> - Koyomi CLI for job's CRUD
     # Modify one Job
     koyomi-cli modify -id <job_id> [-e <PATH of EDITOR>]
 
+    # Show help and manual
+    koyomi-cli help
+    koyomi-cli man
+
 =head1 DESCRIPTION
 
 CommandLine Interface for CRUD of jobs.
