@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010_001;
 
-use version; our $VERSION = 'v0.4.2';
+use version; our $VERSION = 'v0.5.0';
 
 1;
 __END__

@@ -20,7 +20,7 @@ use App::Koyomi::Context;
 use App::Koyomi::JobTime::Formatter qw(str2time);
 use App::Koyomi::JobTime::Object;
 
-use version; our $VERSION = 'v0.4.2';
+use version; our $VERSION = 'v0.5.0';
 
 my @CLI_METHODS = qw/help man add list modify delete/;
 
