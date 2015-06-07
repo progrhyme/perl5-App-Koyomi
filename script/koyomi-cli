@@ -28,16 +28,16 @@ B<koyomi-cli> - Koyomi CLI for job's CRUD
 =head1 SYNOPSIS
 
     # Add one Job
-    koyomi-cli add [-e <PATH of EDITOR>]
+    koyomi-cli add [OPTION] [-e <PATH of EDITOR>]
 
     # List Jobs
-    koyomi-cli list
+    koyomi-cli list [OPTION]
 
     # Modify one Job
-    koyomi-cli modify -id <job_id> [-e <PATH of EDITOR>]
+    koyomi-cli modify -id <job_id> [OPTION] [-e <PATH of EDITOR>]
 
     # Delete one Job
-    koyomi-cli delete -id <job_id>
+    koyomi-cli delete -id <job_id> [OPTION]
 
     # Show help and manual
     koyomi-cli help
@@ -46,6 +46,33 @@ B<koyomi-cli> - Koyomi CLI for job's CRUD
 =head1 DESCRIPTION
 
 CommandLine Interface for CRUD of jobs.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--config|-c Str>
+
+Config file path.
+Can be specified with all CRUD sub-commands.
+
+=item B<--job-id|-id Int>
+
+Job ID.
+Must be specified with I<modify> and I<delete> sub-commands.
+
+=item B<--editor|-e Str>
+
+Path to executable file as text editor.
+Can be specified with I<add> and I<modify> sub-commands.
+Default is "vi".
+
+=item B<--debug|-d>
+
+Enable debug logging.
+Can be specified with all CRUD sub-commands.
+
+=back
 
 =head1 SEE ALSO
 
