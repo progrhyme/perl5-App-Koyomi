@@ -72,6 +72,7 @@ sub add {
 
     my ($fh, $tempfile) = tempfile();
     print $fh $yaml;
+    print $fh _yaml_description();
     close $fh;
     system($editor, $tempfile);
     my $new_yaml = slurp($tempfile);
@@ -141,6 +142,7 @@ sub modify {
 
     my ($fh, $tempfile) = tempfile();
     print $fh $yaml;
+    print $fh _yaml_description();
     close $fh;
     system($editor, $tempfile);
     my $new_yaml = slurp($tempfile);
@@ -160,6 +162,22 @@ sub modify {
     );
 
     infof('[modify] Finished.');
+}
+
+sub _yaml_description {
+    state $desc = <<'EOS';
+
+# __EOF__
+# Format and Description:
+#   "command": String. Job as shell command to execute.
+#   "memo":    String. You can add comment about the job on this field.
+#   "times":   Array. Each entry follows this format:
+#     - 'YYYY/mm/dd HH:MM (number of day in week)'
+#     Examples:
+#       - '2015/*/* 0:0 (7)' ... At 0:00 am every sunday in 2015
+#       - '*/*/* *:30 (*)'   ... At 30 minutes after every o'clock
+#   "user": String. OS user to execute the command. Leave it blank to execute by the user of worker
+EOS
 }
 
 1;
