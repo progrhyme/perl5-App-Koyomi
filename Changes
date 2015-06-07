@@ -2,6 +2,10 @@ Revision history for Perl extension App-Koyomi
 
 {{$NEXT}}
 
+2015-06-07 v0.4.0  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
+
+    - Feature: koyomi-cli "delete" sub-command
+
 2015-06-05 v0.3.2  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
     - Feature: koyomi-cli "add" sub-command

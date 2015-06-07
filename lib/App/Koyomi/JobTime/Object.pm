@@ -10,7 +10,7 @@ use Class::Accessor::Lite (
 
 use App::Koyomi::JobTime::Formatter qw(time2str);
 
-use version; our $VERSION = 'v0.3.2';
+use version; our $VERSION = 'v0.4.0';
 
 1;
 

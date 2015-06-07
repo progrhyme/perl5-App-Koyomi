@@ -13,7 +13,7 @@ use Smart::Args;
 
 use App::Koyomi::Job;
 
-use version; our $VERSION = 'v0.3.2';
+use version; our $VERSION = 'v0.4.0';
 
 my $SCHEDULE;
 
