@@ -16,6 +16,7 @@ use parent qw(App::Koyomi::DataSource::Semaphore);
 
 use version; our $VERSION = 'v0.4.0';
 
+my $TABLE = 'semaphores';
 my $DATASOURCE;
 
 sub instance {
@@ -46,7 +47,7 @@ sub get_by_job_id {
         my $job_id => 'Int',
         my $ctx    => 'App::Koyomi::Context',
     );
-    my $row = $self->teng->single('semaphores', +{job_id => $job_id});
+    my $row = $self->teng->single($TABLE, +{job_id => $job_id});
     return unless $row;
     return App::Koyomi::DataSource::Semaphore::Teng::Data->new(
         row => $row,
