@@ -25,8 +25,14 @@ use version; our $VERSION = 'v0.5.0';
 my @CLI_METHODS = qw/help man add list modify delete/;
 
 sub new {
-    my $class = shift;
-    my %args  = @_;
+    args(
+        my $class,
+        my $config => +{ isa => 'Str',  optional => 1 },
+        my $debug  => +{ isa => 'Bool', optional => 1 },
+    );
+    $ENV{KOYOMI_CONFIG_PATH} = $config if $config;
+    $ENV{KOYOMI_LOG_DEBUG}   = 1       if $debug;
+
     my $ctx   = App::Koyomi::Context->instance;
     return bless +{ ctx => $ctx }, $class;
 }
@@ -42,14 +48,17 @@ sub parse_args {
     }
 
     Getopt::Long::GetOptionsFromArray(
-        \@args,         \my %opt,
-        'job-id|id=i', 'editor|e=s',
+        \@args, \my %opt, 'config|c=s',
+        'job-id|id=i', 'editor|e=s', 'debug|d'
     );
     my %cmd_args;
     $cmd_args{job_id} = $opt{'job-id'} if $opt{'job-id'};
     $cmd_args{editor} = $opt{editor}   if $opt{editor};
 
     my %property = ();
+    for my $key (qw/config debug/) {
+        $property{$key} = $opt{$key} if $opt{$key};
+    }
     return ($method, \%property, \%cmd_args);
 }
 
