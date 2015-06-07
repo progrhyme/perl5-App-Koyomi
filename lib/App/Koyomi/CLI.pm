@@ -79,10 +79,11 @@ sub add {
     unlink $tempfile;
 
     my $new_data = YAML::XS::Load($new_yaml);
+    print YAML::XS::Dump($new_data) . "\n";
     my @new_times = map { str2time($_) } @{$new_data->{times}};
     $new_data->{times} = \@new_times;
 
-    if (prompt('Add a job. OK? (y/n)', 'n') ne 'y') {
+    if (prompt('Add this job. OK? (y/n)', 'n') ne 'y') {
         infof('[add] Canceled.');
         return;
     }
