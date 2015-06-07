@@ -31,7 +31,7 @@ MANIFEST			This list of files
 META.json
 META.yml
 README.md
-schema/koyomi.ddl
+schema/mysql/koyomi.ddl
 script/koyomi
 script/koyomi-cli
 t/all_use_ok.t
