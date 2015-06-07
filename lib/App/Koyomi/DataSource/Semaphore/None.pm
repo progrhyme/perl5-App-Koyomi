@@ -6,7 +6,7 @@ use 5.010_001;
 
 use parent qw(App::Koyomi::DataSource::Semaphore);
 
-use version; our $VERSION = 'v0.5.0';
+use version; our $VERSION = 'v0.5.1';
 
 sub instance {
     my $class = shift;

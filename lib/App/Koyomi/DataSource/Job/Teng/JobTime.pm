@@ -8,7 +8,7 @@ use Smart::Args;
 use App::Koyomi::Job;
 use App::Koyomi::JobTime::Formatter qw(time2str);
 
-use version; our $VERSION = 'v0.5.0';
+use version; our $VERSION = 'v0.5.1';
 
 # Accessor for job_times.columns
 {
