@@ -32,6 +32,7 @@ META.json
 META.yml
 README.md
 schema/mysql/koyomi.ddl
+schema/sqlite/koyomi.ddl
 script/koyomi
 script/koyomi-cli
 t/all_use_ok.t
