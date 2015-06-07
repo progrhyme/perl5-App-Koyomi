@@ -28,9 +28,11 @@ lock_ttl_seconds = 25
 [datasource.module]
 job       = "Teng"
 semaphore = "Teng"
+#semaphore = "None"
 
 [datasource.connector]
 dsn      = "dbi:mysql:database=koyomi;host=127.0.0.1;port=3306"
+#dsn      = "dbi:SQLite:tmp/koyomi.sqlite"
 user     = "root"
 password = ""
 
