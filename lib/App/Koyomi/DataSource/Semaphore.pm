@@ -27,6 +27,7 @@ B<App::Koyomi::DataSource::Semaphore> - Abstract datasource class for semaphore 
 
     # Your implementation goes below
     sub instance { ... }
+    sub get_by_job_id { ... }
 
 =head1 DESCRIPTION
 
@@ -40,6 +41,10 @@ Abstract datasource class for koyomi semaphore entity.
 
 Construct datasource object.
 Probably it's singleton.
+
+=item B<get_by_job_id>
+
+Fetch one semaphore by job_id.
 
 =back
 
