@@ -176,6 +176,33 @@ sub update_by_id {
     return 1;
 }
 
+sub delete_by_id {
+    args(
+        my $self,
+        my $id   => 'Int',
+    );
+    my $teng = $self->teng;
+
+    # Transaction
+    my $txn = $teng->txn_scope;
+
+    eval {
+        unless ($teng->delete('jobs', +{ id => $id })) {
+            croakf(q/Delete jobs Failed! id=%d/, $id);
+        }
+        unless ($teng->delete('job_times', +{ job_id => $id })) {
+            croakf(q/Delete job_times Failed! id=%d/, $id);
+        }
+    };
+    if ($@) {
+        $txn->rollback;
+        die $@;
+    }
+
+    $txn->commit;
+    return 1;
+}
+
 1;
 
 __END__
