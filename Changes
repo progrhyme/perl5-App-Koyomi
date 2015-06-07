@@ -2,6 +2,10 @@ Revision history for Perl extension App-Koyomi
 
 {{$NEXT}}
 
+2015-06-07 v0.4.1  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
+
+    - Fix: Create and delete "semaphores" record along with job creation/deletion.
+
 2015-06-07 v0.4.0  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
     - Feature: koyomi-cli "delete" sub-command

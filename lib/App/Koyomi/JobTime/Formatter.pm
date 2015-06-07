@@ -8,7 +8,7 @@ use Carp qw(croak);
 use parent qw(Exporter);
 our @EXPORT_OK = qw(time2str str2time);
 
-use version; our $VERSION = 'v0.4.0';
+use version; our $VERSION = 'v0.4.1';
 
 sub time2str {
     my $self = shift;
