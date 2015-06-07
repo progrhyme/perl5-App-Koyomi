@@ -24,7 +24,7 @@ Then if one worker stops with any trouble, remaining workers will take after its
 
 =head1 DOCUMENTATION
 
-Full documentation is available on http://key-amb.github.io/App-Koyomi-Doc/ .
+Full documentation is available on L<http://key-amb.github.io/App-Koyomi-Doc/>.
 
 =head1 SEE ALSO
 

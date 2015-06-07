@@ -7,6 +7,8 @@ use Class::Accessor::Lite (
     ro => [qw/ctx config schedule/],
 );
 use DateTime;
+use Getopt::Long qw(:config posix_default no_ignore_case no_ignore_case_always);
+use Smart::Args;
 use Time::Piece;
 
 use App::Koyomi::Context;
@@ -15,14 +17,31 @@ use App::Koyomi::Schedule;
 use version; our $VERSION = 'v0.4.1';
 
 sub new {
-    my $class = shift;
-    my @args  = @_;
+    args(
+        my $class,
+        my $config => +{ isa => 'Str',  optional => 1 },
+        my $debug  => +{ isa => 'Bool', optional => 1 },
+    );
+    $ENV{KOYOMI_CONFIG_PATH} = $config if $config;
+    $ENV{KOYOMI_LOG_DEBUG}   = 1       if $debug;
+
     my $ctx   = App::Koyomi::Context->instance;
     return bless +{
         ctx      => $ctx,
         config   => $ctx->config,
         schedule => App::Koyomi::Schedule->instance(ctx => $ctx),
     }, $class;
+}
+
+sub parse_args {
+    my $class  = shift;
+    my @args   = @_;
+
+    Getopt::Long::GetOptionsFromArray(
+        \@args, \my %opt, 'config|c=s',
+        'debug|d', 'help|h', 'man',
+    );
+    return \%opt;
 }
 
 sub run {
@@ -94,7 +113,8 @@ B<App::Koyomi::Worker> - koyomi worker module
 =head1 SYNOPSIS
 
     use App::Koyomi::Worker;
-    App::Koyomi::Worker->new(@ARGV)->run;
+    my $props = App::Koyomi::Worker->parse_args(@ARGV);
+    App::Koyomi::Worker->new(%$props)->run;
 
 =head1 DESCRIPTION
 
@@ -111,6 +131,11 @@ Construction.
 =item B<run>
 
 Runs worker.
+
+=item B<parse_args> : HashRef
+
+Parse command-line arguments.
+Return option stash to construct the worker object or to show help.
 
 =back
 
