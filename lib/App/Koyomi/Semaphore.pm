@@ -21,8 +21,12 @@ sub consume {
         my $now    => +{ isa => 'DateTime', optional => 1 },
         my $ctx    => 'App::Koyomi::Context',
     );
-    $now ||= $ctx->now;
     my $ds = $ctx->datasource_semaphore;
+    if ($ds->isa('App::Koyomi::DataSource::Semaphore::None')) {
+        return 1;
+    }
+
+    $now ||= $ctx->now;
     my $header = sprintf('%d %d', $$, $job_id);
 
     my $semaphore = $ds->get_by_job_id(

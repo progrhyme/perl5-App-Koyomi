@@ -77,3 +77,6 @@
 
 # Avoid log dir
 \blog/
+
+# Avoid tmp dir
+\btmp/

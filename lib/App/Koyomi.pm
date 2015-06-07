@@ -28,7 +28,10 @@ Full documentation is available on L<http://key-amb.github.io/App-Koyomi-Doc/>.
 
 =head1 SEE ALSO
 
-L<koyomi>
+L<koyomi>,
+L<koyomi-cli>,
+L<App::Koyomi::Worker>,
+L<App::Koyomi::CLI>
 
 =head1 AUTHORS
 

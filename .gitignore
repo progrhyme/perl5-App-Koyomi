@@ -9,6 +9,7 @@
 /.carton/
 /local/
 /log/
+/tmp/
 
 nytprof.out
 nytprof/

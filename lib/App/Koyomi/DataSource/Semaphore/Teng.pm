@@ -120,7 +120,7 @@ __END__
 
 =head1 NAME
 
-App::Koyomi::DataSource::Semaphore::Teng - Teng interface as schedule datasource
+App::Koyomi::DataSource::Semaphore::Teng - Teng interface as semaphore datasource
 
 =head1 SYNOPSIS
 
@@ -129,7 +129,7 @@ App::Koyomi::DataSource::Semaphore::Teng - Teng interface as schedule datasource
 
 =head1 DESCRIPTION
 
-Teng interface as datasource for koyomi semaphore schedule.
+Teng interface as datasource for koyomi semaphore.
 
 =head1 SEE ALSO
 
