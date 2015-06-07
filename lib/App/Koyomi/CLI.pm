@@ -164,6 +164,42 @@ sub modify {
     infof('[modify] Finished.');
 }
 
+sub delete {
+    args(
+        my $self,
+        my $job_id => 'Int',
+    );
+
+    my $ctx = $self->ctx;
+    my $job = $ctx->datasource_job->get_by_id(
+        id  => $job_id,
+        ctx => $ctx
+    );
+    croakf(q/No such job! id=%d/, $job_id) unless $job;
+
+    my %data = (
+        user    => $job->user || q{},
+        command => $job->command,
+        memo    => $job->memo,
+    );
+
+    my @times = map { $_->time2str } @{$job->times};
+    $data{times} = \@times;
+
+    my $yaml = YAML::XS::Dump(\%data);
+
+    print $yaml . "\n";
+
+    if (prompt('Delete this job. OK? (y/n)', 'n') ne 'y') {
+        infof('[delete] Canceled.');
+        return;
+    }
+
+    $ctx->datasource_job->delete_by_id(id => $job_id);
+
+    infof('[delete] Finished.');
+}
+
 sub _yaml_description {
     state $desc = <<'EOS';
 
@@ -223,7 +259,6 @@ Modify a job schedule.
 =item B<delete>
 
 Delete a job schedule.
-NOT implemented yet.
 
 =back
 
