@@ -149,13 +149,14 @@ sub update_by_id {
         # update jobs
         my %job = map { $_ => $data->{$_} } qw/user command memo/;
         $job{updated_at} = $now_db;
-        my $updated = $teng->update('jobs', \%job, +{ id => $id });
-        unless ($updated) {
+        unless ($teng->update('jobs', \%job, +{ id => $id })) {
             croakf(q/Update jobs Failed! id=%d, data=%s/, $id, ddf(\%job));
         }
 
         # replace job_times
-        $teng->delete('job_times', +{ job_id => $id });
+        unless ($teng->delete('job_times', +{ job_id => $id })) {
+            croakf(q/Delete job_times Failed! id=%d/, $id);
+        }
         for my $t (@{$data->{times}}) {
             my %time = (
                 job_id => $id,
