@@ -200,7 +200,7 @@ sub delete {
         return;
     }
 
-    $ctx->datasource_job->delete_by_id(id => $job_id);
+    $ctx->datasource_job->delete_by_id(id => $job_id, ctx => $ctx);
 
     infof('[delete] Finished.');
 }

@@ -120,6 +120,10 @@ sub create {
             $teng->insert('job_times', \%time)
                 or croakf(q/Insert job_times Failed! data=%s/, ddf(\%time));
         }
+
+        # Initialize semaphore
+        $ctx->datasource_semaphore->create(
+            job_id => $new_job->id, ctx => $ctx, now => $now);
     };
     if ($@) {
         $txn->rollback;
@@ -180,7 +184,8 @@ sub update_by_id {
 sub delete_by_id {
     args(
         my $self,
-        my $id   => 'Int',
+        my $id  => 'Int',
+        my $ctx => 'App::Koyomi::Context',
     );
     my $teng = $self->teng;
 
@@ -194,6 +199,8 @@ sub delete_by_id {
         unless ($teng->delete('job_times', +{ job_id => $id })) {
             croakf(q/Delete job_times Failed! id=%d/, $id);
         }
+        # Clean up semaphore
+        $ctx->datasource_semaphore->delete_by_job_id(job_id => $id, ctx => $ctx);
     };
     if ($@) {
         $txn->rollback;
