@@ -13,6 +13,7 @@ use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Perl6::Slurp;
 use Smart::Args;
 use Text::ASCIITable;
+use Text::Diff ();
 use YAML::XS ();
 
 use App::Koyomi::Context;
@@ -150,6 +151,9 @@ sub modify {
     unlink $tempfile;
 
     my $new_data = YAML::XS::Load($new_yaml);
+    $new_yaml = YAML::XS::Dump($new_data);
+    print Text::Diff::diff(\$yaml, \$new_yaml, +{ STYLE => 'Unified', CONTEXT => 5 });
+
     my @new_times = map { str2time($_) } @{$new_data->{times}};
     $new_data->{times} = \@new_times;
 
