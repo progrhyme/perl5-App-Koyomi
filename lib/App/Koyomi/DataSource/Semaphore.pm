@@ -7,9 +7,10 @@ use Carp qw(croak);
 
 use version; our $VERSION = 'v0.4.0';
 
-sub instance { croak 'Must implement in child class!'; }
-
-sub get_by_job_id { croak 'Must implement in child class!'; }
+sub instance         { croak 'Must implement in child class!'; }
+sub get_by_job_id    { croak 'Must implement in child class!'; }
+sub create           { croak 'Must implement in child class!'; }
+sub delete_by_job_id { croak 'Must implement in child class!'; }
 
 1;
 
@@ -28,6 +29,8 @@ B<App::Koyomi::DataSource::Semaphore> - Abstract datasource class for semaphore 
     # Your implementation goes below
     sub instance { ... }
     sub get_by_job_id { ... }
+    sub create { ... }
+    sub delete_by_job_id { ... }
 
 =head1 DESCRIPTION
 
@@ -45,6 +48,14 @@ Probably it's singleton.
 =item B<get_by_job_id>
 
 Fetch one semaphore by job_id.
+
+=item B<create>
+
+Create a semaphore.
+
+=item B<delete_by_job_id>
+
+Delete one semaphore specified by job_id.
 
 =back
 

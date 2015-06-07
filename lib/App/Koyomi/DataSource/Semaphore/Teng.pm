@@ -6,6 +6,8 @@ use 5.010_001;
 use Class::Accessor::Lite (
     ro => [qw/teng/],
 );
+use DateTime::Format::MySQL;
+use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 
 use App::Koyomi::DataSource::Semaphore::Teng::Data;
@@ -53,6 +55,61 @@ sub get_by_job_id {
         row => $row,
         ctx => $ctx,
     );
+}
+
+sub create {
+    args(
+        my $self,
+        my $job_id => 'Int',
+        my $ctx    => 'App::Koyomi::Context',
+        my $now    => +{ isa => 'DateTime', optional => 1 },
+    );
+    $now ||= $ctx->now;
+    my $teng = $self->teng;
+
+    # Transaction
+    my $txn = $teng->txn_scope;
+
+    my $now_db = DateTime::Format::MySQL->format_datetime($now);
+    eval {
+        my %semaphore = ( job_id => $job_id );
+        $semaphore{created_on} = $semaphore{updated_at} = $now_db;
+        unless ($teng->insert($TABLE, \%semaphore)) {
+            croakf(q/Insert %s Failed! data=%s/, $TABLE, ddf(\%semaphore));
+        }
+    };
+    if ($@) {
+        $txn->rollback;
+        die $@;
+    }
+
+    $txn->commit;
+    return 1;
+}
+
+sub delete_by_job_id {
+    args(
+        my $self,
+        my $job_id => 'Int',
+        my $ctx    => 'App::Koyomi::Context',
+    );
+    my $teng = $self->teng;
+
+    # Transaction
+    my $txn = $teng->txn_scope;
+
+    eval {
+        unless ($teng->delete($TABLE, +{ job_id => $job_id })) {
+            croakf(q/Delete %s Failed! job_id=%d/, $TABLE, $job_id);
+        }
+    };
+    if ($@) {
+        $txn->rollback;
+        die $@;
+    }
+
+    $txn->commit;
+    return 1;
 }
 
 1;
