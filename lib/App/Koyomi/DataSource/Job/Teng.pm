@@ -18,14 +18,14 @@ use parent qw(App::Koyomi::DataSource::Job);
 
 use version; our $VERSION = 'v0.3.2';
 
-my $JOB;
+my $DATASOURCE;
 
 sub instance {
     args(
         my $class,
         my $ctx => 'App::Koyomi::Context',
     );
-    $JOB //= sub {
+    $DATASOURCE //= sub {
         my $connector
             = $ctx->config->{datasource}{connector}{job}
             // $ctx->config->{datasource}{connector};
@@ -39,7 +39,7 @@ sub instance {
         my %obj = (teng => $teng);
         return bless \%obj, $class;
     }->();
-    return $JOB;
+    return $DATASOURCE;
 }
 
 sub gets {
@@ -149,13 +149,14 @@ sub update_by_id {
         # update jobs
         my %job = map { $_ => $data->{$_} } qw/user command memo/;
         $job{updated_at} = $now_db;
-        my $updated = $teng->update('jobs', \%job, +{ id => $id });
-        unless ($updated) {
+        unless ($teng->update('jobs', \%job, +{ id => $id })) {
             croakf(q/Update jobs Failed! id=%d, data=%s/, $id, ddf(\%job));
         }
 
         # replace job_times
-        $teng->delete('job_times', +{ job_id => $id });
+        unless ($teng->delete('job_times', +{ job_id => $id })) {
+            croakf(q/Delete job_times Failed! id=%d/, $id);
+        }
         for my $t (@{$data->{times}}) {
             my %time = (
                 job_id => $id,
@@ -165,6 +166,33 @@ sub update_by_id {
             );
             $teng->insert('job_times', \%time)
                 or croakf(q/Insert job_times Failed! data=%s/, ddf(\%time));
+        }
+    };
+    if ($@) {
+        $txn->rollback;
+        die $@;
+    }
+
+    $txn->commit;
+    return 1;
+}
+
+sub delete_by_id {
+    args(
+        my $self,
+        my $id   => 'Int',
+    );
+    my $teng = $self->teng;
+
+    # Transaction
+    my $txn = $teng->txn_scope;
+
+    eval {
+        unless ($teng->delete('jobs', +{ id => $id })) {
+            croakf(q/Delete jobs Failed! id=%d/, $id);
+        }
+        unless ($teng->delete('job_times', +{ job_id => $id })) {
+            croakf(q/Delete job_times Failed! id=%d/, $id);
         }
     };
     if ($@) {

@@ -12,6 +12,7 @@ sub gets         { croak 'Must implement in child class!'; }
 sub get_by_id    { croak 'Must implement in child class!'; }
 sub create       { croak 'Must implement in child class!'; }
 sub update_by_id { croak 'Must implement in child class!'; }
+sub delete_by_id { croak 'Must implement in child class!'; }
 
 1;
 
@@ -33,6 +34,7 @@ B<App::Koyomi::DataSource::Job> - Abstract datasource class for job entity
     sub get_by_id { ... }
     sub create { ... }
     sub update_by_id { ... }
+    sub delete_by_id { ... }
 
 =head1 DESCRIPTION
 
@@ -62,6 +64,10 @@ Create one job data including job_times data.
 =item B<update_by_id>
 
 Update one job data including job_times data.
+
+=item B<delete_by_id>
+
+Delete one job data including job_times data.
 
 =back
 

@@ -9,19 +9,13 @@ use version; our $VERSION = 'v0.3.2';
 
 use App::Koyomi::CLI;
 
-MAIN: {
-    main() if __FILE__ eq $0;
-}
+my ($method, $props, $args) = App::Koyomi::CLI->parse_args(@ARGV);
 
-sub main {
-    my ($method, $props, $args) = App::Koyomi::CLI->parse_args(@ARGV);
+pod2usage() unless $method;
+pod2usage(-verbose => 1) if $method eq 'help';
+pod2usage(-verbose => 2) if $method eq 'man';
 
-    pod2usage() unless $method;
-    pod2usage(-verbose => 1) if $method eq 'help';
-    pod2usage(-verbose => 2) if $method eq 'man';
-
-    App::Koyomi::CLI->new(%$props)->$method(%$args);
-}
+App::Koyomi::CLI->new(%$props)->$method(%$args);
 
 __END__
 
@@ -41,6 +35,13 @@ B<koyomi-cli> - Koyomi CLI for job's CRUD
 
     # Modify one Job
     koyomi-cli modify -id <job_id> [-e <PATH of EDITOR>]
+
+    # Delete one Job
+    koyomi-cli delete -id <job_id>
+
+    # Show help and manual
+    koyomi-cli help
+    koyomi-cli man
 
 =head1 DESCRIPTION
 

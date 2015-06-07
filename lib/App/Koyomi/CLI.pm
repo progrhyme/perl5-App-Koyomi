@@ -13,6 +13,7 @@ use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Perl6::Slurp;
 use Smart::Args;
 use Text::ASCIITable;
+use Text::Diff ();
 use YAML::XS ();
 
 use App::Koyomi::Context;
@@ -21,7 +22,7 @@ use App::Koyomi::JobTime::Object;
 
 use version; our $VERSION = 'v0.3.2';
 
-my @CLI_METHODS = qw/add list modify delete/;
+my @CLI_METHODS = qw/help man add list modify delete/;
 
 sub new {
     my $class = shift;
@@ -72,16 +73,18 @@ sub add {
 
     my ($fh, $tempfile) = tempfile();
     print $fh $yaml;
+    print $fh _yaml_description();
     close $fh;
     system($editor, $tempfile);
     my $new_yaml = slurp($tempfile);
     unlink $tempfile;
 
     my $new_data = YAML::XS::Load($new_yaml);
+    print YAML::XS::Dump($new_data) . "\n";
     my @new_times = map { str2time($_) } @{$new_data->{times}};
     $new_data->{times} = \@new_times;
 
-    if (prompt('Add a job. OK? (y/n)', 'n') ne 'y') {
+    if (prompt('Add this job. OK? (y/n)', 'n') ne 'y') {
         infof('[add] Canceled.');
         return;
     }
@@ -141,12 +144,16 @@ sub modify {
 
     my ($fh, $tempfile) = tempfile();
     print $fh $yaml;
+    print $fh _yaml_description();
     close $fh;
     system($editor, $tempfile);
     my $new_yaml = slurp($tempfile);
     unlink $tempfile;
 
     my $new_data = YAML::XS::Load($new_yaml);
+    $new_yaml = YAML::XS::Dump($new_data);
+    print Text::Diff::diff(\$yaml, \$new_yaml, +{ STYLE => 'Unified', CONTEXT => 5 });
+
     my @new_times = map { str2time($_) } @{$new_data->{times}};
     $new_data->{times} = \@new_times;
 
@@ -160,6 +167,58 @@ sub modify {
     );
 
     infof('[modify] Finished.');
+}
+
+sub delete {
+    args(
+        my $self,
+        my $job_id => 'Int',
+    );
+
+    my $ctx = $self->ctx;
+    my $job = $ctx->datasource_job->get_by_id(
+        id  => $job_id,
+        ctx => $ctx
+    );
+    croakf(q/No such job! id=%d/, $job_id) unless $job;
+
+    my %data = (
+        user    => $job->user || q{},
+        command => $job->command,
+        memo    => $job->memo,
+    );
+
+    my @times = map { $_->time2str } @{$job->times};
+    $data{times} = \@times;
+
+    my $yaml = YAML::XS::Dump(\%data);
+
+    print $yaml . "\n";
+
+    if (prompt('Delete this job. OK? (y/n)', 'n') ne 'y') {
+        infof('[delete] Canceled.');
+        return;
+    }
+
+    $ctx->datasource_job->delete_by_id(id => $job_id);
+
+    infof('[delete] Finished.');
+}
+
+sub _yaml_description {
+    state $desc = <<'EOS';
+
+# __EOF__
+# Format and Description:
+#   "command": String. Job as shell command to execute.
+#   "memo":    String. You can add comment about the job on this field.
+#   "times":   Array. Each entry follows this format:
+#     - 'YYYY/mm/dd HH:MM (number of day in week)'
+#     Examples:
+#       - '2015/*/* 0:0 (7)' ... At 0:00 am every sunday in 2015
+#       - '*/*/* *:30 (*)'   ... At 30 minutes after every o'clock
+#   "user": String. OS user to execute the command. Leave it blank to execute by the user of worker
+EOS
 }
 
 1;
@@ -205,7 +264,6 @@ Modify a job schedule.
 =item B<delete>
 
 Delete a job schedule.
-NOT implemented yet.
 
 =back
 
