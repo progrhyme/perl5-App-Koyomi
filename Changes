@@ -2,6 +2,11 @@ Revision history for Perl extension App-Koyomi
 
 {{$NEXT}}
 
+2015-06-07 v0.4.2  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
+
+    - Add: koyomi command-line options - --config|-c <Str> to specify config path,
+      --debug|-d for debug logging.
+
 2015-06-07 v0.4.1  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
     - Fix: Create and delete "semaphores" record along with job creation/deletion.
