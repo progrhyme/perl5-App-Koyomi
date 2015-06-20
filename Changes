@@ -2,6 +2,10 @@ Revision history for Perl extension App-Koyomi
 
 {{$NEXT}}
 
+2015-06-07 v0.5.2  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
+
+    - Fix: Add necessary module dependency (DBD::SQLite)
+
 2015-06-07 v0.5.1  YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
 
     - Add: Command-line options for koyomi-cli - --config|-c <Str> to specify

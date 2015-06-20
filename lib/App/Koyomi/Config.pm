@@ -11,7 +11,7 @@ use TOML qw(from_toml);
 
 use App::Koyomi::Logger;
 
-use version; our $VERSION = 'v0.5.1';
+use version; our $VERSION = 'v0.5.2';
 
 my $CONFIG;
 

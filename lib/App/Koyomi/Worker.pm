@@ -14,7 +14,7 @@ use Time::Piece;
 use App::Koyomi::Context;
 use App::Koyomi::Schedule;
 
-use version; our $VERSION = 'v0.5.1';
+use version; our $VERSION = 'v0.5.2';
 
 sub new {
     args(
