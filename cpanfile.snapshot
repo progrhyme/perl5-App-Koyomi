@@ -114,6 +114,25 @@ DISTRIBUTIONS
       Class::Singleton 1.5
     requirements:
       ExtUtils::MakeMaker 0
+  DBD-SQLite-1.48
+    pathname: I/IS/ISHIGAKI/DBD-SQLite-1.48.tar.gz
+    provides:
+      DBD::SQLite 1.48
+      DBD::SQLite::Constants undef
+      DBD::SQLite::VirtualTable 1.48
+      DBD::SQLite::VirtualTable::Cursor 1.48
+      DBD::SQLite::VirtualTable::FileContent undef
+      DBD::SQLite::VirtualTable::FileContent::Cursor undef
+      DBD::SQLite::VirtualTable::PerlData undef
+      DBD::SQLite::VirtualTable::PerlData::Cursor undef
+    requirements:
+      DBI 1.57
+      ExtUtils::MakeMaker 6.48
+      File::Spec 0.82
+      Test::Builder 0.86
+      Test::More 0.47
+      Tie::Hash 0
+      perl 5.006
   DBI-1.633
     pathname: T/TI/TIMB/DBI-1.633.tar.gz
     provides:
