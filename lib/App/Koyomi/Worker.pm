@@ -8,6 +8,8 @@ use Class::Accessor::Lite (
 );
 use DateTime;
 use Getopt::Long qw(:config posix_default no_ignore_case no_ignore_case_always);
+use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
+use Proc::Wait3;
 use Smart::Args;
 use Time::Piece;
 
@@ -83,6 +85,9 @@ sub run {
             $seconds = $self->config->{debug}{worker}{sleep_seconds} // $seconds;
         }
         sleep($seconds);
+        while (my @child_proc_info = wait3(0)) {
+            debugf('Exit %d', $child_proc_info[0]);
+        }
     }
 }
 
