@@ -1639,6 +1639,12 @@ DISTRIBUTIONS
       Perl6::Slurp 0.051005
     requirements:
       ExtUtils::MakeMaker 0
+  Proc-Wait3-0.04
+    pathname: C/CT/CTILMES/Proc-Wait3-0.04.tar.gz
+    provides:
+      Proc::Wait3 0.04
+    requirements:
+      ExtUtils::MakeMaker 0
   SQL-Maker-1.21
     pathname: T/TO/TOKUHIROM/SQL-Maker-1.21.tar.gz
     provides:

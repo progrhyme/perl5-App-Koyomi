@@ -7,6 +7,7 @@ requires 'IO::Prompt::Tiny', '0.003';
 requires 'Log::Minimal', '0.19';
 requires 'Module::Load', '0.32';
 requires 'Perl6::Slurp', '0.051005';
+requires 'Proc::Wait3', '0.04';
 requires 'Smart::Args', '0.12';
 requires 'TOML', '0.96';
 requires 'Text::ASCIITable', '0.20';
