@@ -6,7 +6,7 @@ use 5.010_001;
 
 use parent qw(Teng);
 
-use version; our $VERSION = 'v0.5.2';
+use version; our $VERSION = 'v0.6.0';
 
 1;
 __END__
