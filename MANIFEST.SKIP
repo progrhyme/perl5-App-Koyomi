@@ -1,5 +1,5 @@
 
-#!start included /Users/yasutake.kiyoshi/.plenv/versions/5.18.2/lib/perl5/5.18.2/ExtUtils/MANIFEST.SKIP
+#!start included /Users/progrhyme/.plenv/versions/5.18.2/lib/perl5/5.18.2/ExtUtils/MANIFEST.SKIP
 # Avoid version control files.
 \bRCS\b
 \bCVS\b
@@ -55,7 +55,7 @@
 
 # Avoid MYMETA files
 ^MYMETA\.
-#!end included /Users/yasutake.kiyoshi/.plenv/versions/5.18.2/lib/perl5/5.18.2/ExtUtils/MANIFEST.SKIP
+#!end included /Users/progrhyme/.plenv/versions/5.18.2/lib/perl5/5.18.2/ExtUtils/MANIFEST.SKIP
 
 # Avoid configuration metadata file
 ^MYMETA\.

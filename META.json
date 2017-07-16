@@ -1,7 +1,7 @@
 {
    "abstract" : "A simple distributed job scheduler",
    "author" : [
-      "YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>"
+      "IKEDA Kiyoshi <progrhyme@gmail.com>"
    ],
    "dynamic_config" : 1,
    "generated_by" : "Module::Build version 0.4205",

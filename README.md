@@ -11,7 +11,7 @@ Then if one worker stops with any trouble, remaining workers will take after its
 
 # DOCUMENTATION
 
-Full documentation is available on http://key-amb.github.io/App-Koyomi-Doc/ .
+Full documentation is available on http://progrhyme.github.io/App-Koyomi-Doc/ .
 
 # SEE ALSO
 
@@ -19,11 +19,11 @@ Full documentation is available on http://key-amb.github.io/App-Koyomi-Doc/ .
 
 # AUTHORS
 
-YASUTAKE Kiyoshi <yasutake.kiyoshi@gmail.com>
+IKEDA Kiyoshi <progrhyme@gmail.com>
 
 # LICENSE
 
-Copyright (C) 2015 YASUTAKE Kiyoshi.
+Copyright (C) 2015-2017 IKEDA Kiyoshi.
 
 This library is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.  That means either (a) the GNU General Public
