@@ -4,18 +4,21 @@ App::Koyomi - A simple distributed job scheduler
 
 # DESCRIPTION
 
-__Koyomi__ is a simple distributed job scheduler which achieves High Availability.
+**Koyomi** is a simple distributed job scheduler which achieves High Availability.
 
 You can run _koyomi worker_ on several servers.
 Then if one worker stops with any trouble, remaining workers will take after its jobs.
 
 # DOCUMENTATION
 
-Full documentation is available on http://progrhyme.github.io/App-Koyomi-Doc/ .
+Full documentation is available on [http://progrhyme.github.io/App-Koyomi-Doc/](http://progrhyme.github.io/App-Koyomi-Doc/).
 
 # SEE ALSO
 
-[koyomi](https://metacpan.org/pod/koyomi)
+[koyomi](https://metacpan.org/pod/koyomi),
+[koyomi-cli](https://metacpan.org/pod/koyomi-cli),
+[App::Koyomi::Worker](https://metacpan.org/pod/App::Koyomi::Worker),
+[App::Koyomi::CLI](https://metacpan.org/pod/App::Koyomi::CLI)
 
 # AUTHORS
 

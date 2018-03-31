@@ -6,7 +6,7 @@ use 5.010_001;
 use Log::Minimal env_debug => 'KOYOMI_LOG_DEBUG';
 use Smart::Args;
 
-use version; our $VERSION = 'v0.6.0';
+use version; our $VERSION = 'v0.6.1';
 
 sub bootstrap {
     args(

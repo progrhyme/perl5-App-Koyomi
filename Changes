@@ -2,6 +2,11 @@ Revision history for Perl extension App-Koyomi
 
 {{$NEXT}}
 
+2018-03-31 v0.6.1  IKEDA Kiyoshi <progrhyme@gmail.com>
+
+    - Change: Authority from @key-amb to @progrhyme . Locations of repository
+      & documentation site has moved.
+
 2015-07-19 v0.6.0  IKEDA Kiyoshi <progrhyme@gmail.com>
 
     - Fix: Wait child processes using Proc::Wait3
